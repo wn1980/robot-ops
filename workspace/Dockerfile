@@ -29,7 +29,7 @@ RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y \
-    #ros-${ROS_DISTRO}-desktop-full \
+    ros-${ROS_DISTRO}-desktop-full \
     #ros-${ROS_DISTRO}-linux-peripheral-interfaces \
     #ros-${ROS_DISTRO}-diagnostics \
     #ros-${ROS_DISTRO}-navigation \
