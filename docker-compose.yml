@@ -82,3 +82,27 @@ services:
       - "/etc/localtime:/etc/localtime:ro"
     environment:
       - ROS_MASTER_URI=http://master:11311    
+
+  ros2:
+    build: ./ros2
+    image: wn1980/ros2${TAG}
+    container_name: ros2_workspace
+    init: true
+    restart: unless-stopped
+    environment:
+      - DISPLAY=:1
+    privileged: true
+    devices:
+      - "/dev:/dev"
+    volumes:
+      - "/dev:/dev"
+      - "/run/systemd:/run/systemd"
+      - "/etc/localtime:/etc/localtime:ro"
+      - "workspace:/workspace"
+    healthcheck:
+      test: ["CMD-SHELL", "test -e /tmp/.X11-unix/X1"]
+      interval: "1m"
+      retries: 20
+    ports:
+      - "8559:8558"
+      - "9902:9901"
