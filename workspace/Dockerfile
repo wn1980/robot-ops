@@ -1,4 +1,6 @@
-FROM ros:melodic-perception-bionic
+#FROM ros:melodic-perception-bionic
+FROM ros:noetic-perception-focal
+
 
 LABEL maintainer="Waipot Ngamsaad <waipotn@hotmail.com>"
 
@@ -36,7 +38,7 @@ RUN apt-get update && \
     #ros-${ROS_DISTRO}-hector-slam \
     #ros-${ROS_DISTRO}-octomap-server \
     #ros-${ROS_DISTRO}-octomap-rviz-plugins \
-    python-rosdep && \
+    python3-rosdep && \
     apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -61,7 +63,8 @@ RUN apt-get update && \
     sudo \
     tigervnc-standalone-server \
     #tigervnc-xorg-extension \
-    python-pip && \
+    python-is-python3 \
+    python3-pip && \
     pip install -U --no-cache-dir supervisor supervisor_twiddler && \
     apt-get autoremove -y && \
     apt-get clean && \
@@ -73,7 +76,7 @@ ENV NO_VNC_HOME=/opt/noVNC
 RUN rm -Rf $NO_VNC_HOME && \
     mkdir -p $NO_VNC_HOME/utils/websockify && \
     wget -qO- https://github.com/novnc/noVNC/archive/v1.2.0.tar.gz | tar xz --strip 1 -C $NO_VNC_HOME && \
-    wget -qO- https://github.com/novnc/websockify/archive/v0.9.0.tar.gz | tar xz --strip 1 -C $NO_VNC_HOME/utils/websockify
+    wget -qO- https://github.com/novnc/websockify/archive/v0.10.0.tar.gz | tar xz --strip 1 -C $NO_VNC_HOME/utils/websockify
 
 COPY ./index.html $NO_VNC_HOME
 
