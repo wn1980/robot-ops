@@ -12,10 +12,7 @@ RUN apt-get update && \
 	apt-get upgrade -y && \
 	apt-get install -y \ 
 	build-essential \
-    git && \
-	apt-get autoremove -y && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    git 
 
 RUN mkdir -p /ws/src && \
     cd /ws/src && \
@@ -24,6 +21,11 @@ RUN mkdir -p /ws/src && \
 	source /opt/ros/$ROS_DISTRO/setup.bash && \
 	catkin_make install -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/opt/ros/$ROS_DISTRO -DCATKIN_ENABLE_TESTING=0 && \
 	cd / && rm -rf /ws
+
+RUN apt-get purge -y git && \
+	apt-get autoremove -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY ./start.launch /
 

@@ -18,10 +18,10 @@ services:
     init: true
     restart: unless-stopped
     command: ros2 run ros1_bridge dynamic_bridge
-    environment:
-      - ROS_MASTER_URI=http://master:11311
     depends_on: 
       - master
+    environment:
+      - ROS_MASTER_URI=http://master:11311
 
   workspace:
     build: ./workspace
@@ -29,12 +29,14 @@ services:
     container_name: ros_workspace
     init: true
     restart: unless-stopped
+    privileged: true
+    depends_on: 
+      - master
     environment:
       - DISPLAY=:1
       - ROS_MASTER_URI=http://master:11311
       #- QT_X11_NO_MITSHM=1
       #- TURTLEBOT_3D_SENSOR=asus_xtion_pro
-    privileged: true
     devices:
       - "/dev:/dev"
     volumes:
@@ -55,6 +57,7 @@ services:
     build: ./joystick
     image: wn1980/joystick${TAG}
     container_name: ros_joystick
+    init: true
     restart: unless-stopped
     privileged: true
     depends_on:
@@ -71,6 +74,7 @@ services:
     build: ./ydlidar
     image: wn1980/ydlidar${TAG}
     container_name: ros_ydlidar
+    init: true
     restart: unless-stopped
     privileged: true
     depends_on:
