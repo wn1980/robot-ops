@@ -71,7 +71,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # install noVNC
-ENV NO_VNC_HOME=/opt/noVNC
+ENV NO_VNC_HOME=/app/noVNC
 
 RUN rm -Rf $NO_VNC_HOME && \
     mkdir -p $NO_VNC_HOME/utils/websockify && \
