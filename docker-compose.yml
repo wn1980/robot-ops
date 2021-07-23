@@ -32,3 +32,22 @@ services:
       #- "11311:11311"
       - "8558:8558"
       - "9901:9901"
+      
+  joystick:
+    build: ./joystick
+    image: wn1980/joystick${TAG}
+    container_name: ros_joystick
+    restart: unless-stopped
+    privileged: true
+    #command: stdbuf -o L roslaunch --wait start.launch
+    #command: stdbuf -o L roslaunch --wait turtlebot_lidar_teleop joystick.launch
+    #command: stdbuf -o L roslaunch --wait teleop_twist_joy teleop.launch
+    depends_on:
+      - workspace
+    devices:
+      - "/dev/input:/dev/input"
+    volumes:
+      - "/dev/input:/dev/input"
+      - "/etc/localtime:/etc/localtime:ro"
+    environment:
+      - "ROS_MASTER_URI=http://workspace:11311"
