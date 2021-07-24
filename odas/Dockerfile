@@ -146,7 +146,7 @@ RUN git clone https://github.com/introlab/odas.git && \
 
 RUN git clone https://github.com/introlab/odas_web.git && \
     cd odas_web && \
-    npm start && \
+    npm install && \
     npm audit fix && \
     npm audit fix --force
 
