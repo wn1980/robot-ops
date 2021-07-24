@@ -150,6 +150,8 @@ RUN git clone https://github.com/introlab/odas_web.git && \
     npm audit fix && \
     npm audit fix --force
 
+RUN wget https://raw.githubusercontent.com/respeaker/usb_4_mic_array/master/odas.cfg
+
 VOLUME /tmp/.X11-unix
 
 COPY ./app /app
