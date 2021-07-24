@@ -103,23 +103,23 @@ RUN rm /etc/ros/rosdep/sources.list.d/20-default.list && \
 RUN mkdir -p /workspace
 
 # setup user
-RUN useradd -m developer && \
-    usermod -aG sudo developer && \
-    usermod --shell /bin/bash developer && \
-    chown -R developer:developer /workspace && \
-    ln -sfn /workspace /home/developer/workspace && \
-    echo developer ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/developer && \
-    chmod 0440 /etc/sudoers.d/developer
+RUN useradd -m developer2 && \
+    usermod -aG sudo developer2 && \
+    usermod --shell /bin/bash developer2 && \
+    chown -R developer2:developer2 /workspace && \
+    ln -sfn /workspace /home/developer2/workspace && \
+    echo developer2 ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/developer2 && \
+    chmod 0440 /etc/sudoers.d/developer2
 
-ENV USER=developer
+ENV USER=developer2
 
-ENV HOME /home/developer
+ENV HOME /home/developer2
 
 ENV SHELL /bin/bash
 
 USER $USER
 
-WORKDIR /home/developer
+WORKDIR /home/developer2
 
 # init rosdep
 RUN rosdep fix-permissions && rosdep update
