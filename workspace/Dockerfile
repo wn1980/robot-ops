@@ -50,6 +50,7 @@ RUN apt-get update && \
     htop \
     tmux \
     terminator \
+    xfe \
     #fluxbox \
     jwm \
     xfonts-base \
