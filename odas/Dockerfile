@@ -1,4 +1,4 @@
-FROM ros:noetic-perception-focal
+FROM ros:melodic-ros-core-bionic
 
 LABEL maintainer="Waipot Ngamsaad <waipotn@hotmail.com>"
 
@@ -29,14 +29,14 @@ RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y \
-    ros-${ROS_DISTRO}-desktop-full \
+    #ros-${ROS_DISTRO}-desktop-full \
     #ros-${ROS_DISTRO}-linux-peripheral-interfaces \
     #ros-${ROS_DISTRO}-diagnostics \
     #ros-${ROS_DISTRO}-navigation \
     #ros-${ROS_DISTRO}-hector-slam \
     #ros-${ROS_DISTRO}-octomap-server \
     #ros-${ROS_DISTRO}-octomap-rviz-plugins \
-    python3-rosdep && \
+    python-rosdep && \
     apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -62,8 +62,7 @@ RUN apt-get update && \
     sudo \
     tigervnc-standalone-server \
     #tigervnc-xorg-extension \
-    python-is-python3 \
-    python3-pip && \
+    python-pip && \
     pip install -U --no-cache-dir supervisor supervisor_twiddler && \
     apt-get autoremove -y && \
     apt-get clean && \
@@ -87,18 +86,20 @@ RUN wget https://github.com/cdr/code-server/releases/download/v${VERSION}/code-s
     dpkg -i code-server_${VERSION}_$(dpkg --print-architecture).deb && \
     rm -f code-server_${VERSION}_$(dpkg --print-architecture).deb
 
-# install vscode
-RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg && \
-    install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/ && \
-    sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list' && \
-    rm -f packages.microsoft.gpg
+# install nodejs
+RUN sh -c 'echo "deb https://deb.nodesource.com/node_8.x `lsb_release -cs` main" > /etc/apt/sources.list.d/nodesource.list' && \
+    curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
 
-RUN apt-get install -y apt-transport-https && \
-    apt-get update && \
-    apt-get install -y code # or code-insiders
+RUN apt-get update && \
+    apt-get install -y \
+    nodejs \
+    libfftw3-dev \
+    libconfig-dev \
+    libasound2-dev \
+    libgbm-dev \
+    libnss3-dev
 
-RUN rm /etc/ros/rosdep/sources.list.d/20-default.list && \
-    rosdep init
+RUN rosdep init
 
 RUN mkdir -p /workspace
 
@@ -135,6 +136,19 @@ RUN echo "source /usr/share/bash-completion/bash_completion" >> ~/.bashrc && \
     #rm ~/.bashrc.bak && \
     #bash -i -c "bash-it enable completion git" && \
     echo "source ~/.bashrc" >> ~/.bash_profile 
+
+RUN git clone https://github.com/introlab/odas.git && \
+    cd odas && \
+    mkdir build && \
+    cd build && \
+    cmake ../ && \
+    make
+
+RUN git clone https://github.com/introlab/odas_web.git && \
+    cd odas_web && \
+    npm start && \
+    npm audit fix && \
+    npm audit fix --force
 
 VOLUME /tmp/.X11-unix
 
