@@ -182,6 +182,7 @@
               for that desktop.
          -->
         <Background type="solid">#111111</Background>
+        <Background type="scale">/app/bg.png</Background>
     </Desktops>
 
     <!-- Double click speed (in milliseconds) -->
