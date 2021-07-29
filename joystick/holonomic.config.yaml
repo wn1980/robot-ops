@@ -2,8 +2,8 @@ axis_linear:
   x: 1
   y: 0
 scale_linear:
-  x: 0.5
-  y: 0.5
+  x: 0.25
+  y: 0.25
 scale_linear_turbo:
   x: 1.0
   y: 1.0 
