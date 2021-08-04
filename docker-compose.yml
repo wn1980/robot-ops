@@ -131,7 +131,7 @@ services:
     volumes:
       - "/dev:/dev"
       - "/dev/snd:/dev/snd"
-      - "./asoundrc.txt:/etc/asound.conf:rw"
+      - "./asoundrc.txt:/home/developer/.asoundrc:rw"
       - "/run/systemd:/run/systemd"
       - "/etc/localtime:/etc/localtime:ro"
       - "workspace:/workspace"
