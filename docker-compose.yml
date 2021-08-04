@@ -9,7 +9,7 @@ services:
     image: ros:noetic-ros-core-focal
     container_name: ros_master
     init: true
-    restart: unless-stopped
+    restart: always
     command: roscore
 
   ros1_bridge:
@@ -127,8 +127,11 @@ services:
       #- TURTLEBOT_3D_SENSOR=asus_xtion_pro
     devices:
       - "/dev:/dev"
+      - "/dev/snd:/dev/snd"
     volumes:
       - "/dev:/dev"
+      - "/dev/snd:/dev/snd"
+      - "./asoundrc.txt:/etc/asound.conf:rw"
       - "/run/systemd:/run/systemd"
       - "/etc/localtime:/etc/localtime:ro"
       - "workspace:/workspace"

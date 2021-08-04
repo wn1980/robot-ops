@@ -91,13 +91,23 @@ RUN sh -c 'echo "deb https://deb.nodesource.com/node_8.x `lsb_release -cs` main"
     curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
 
 RUN apt-get update && \
+    apt-get upgrade -y && \
     apt-get install -y \
     nodejs \
     libfftw3-dev \
     libconfig-dev \
     libasound2-dev \
     libgbm-dev \
-    libnss3-dev
+    libnss3-dev \
+	python3-dev \
+	python3-pip \
+	libssl-dev \
+	libffi-dev \
+	libatlas3-base \
+	portaudio19-dev \
+	ffmpeg \
+	alsa-utils \
+	&& rm -rf /var/lib/apt/lists/*
 
 RUN rosdep init
 
