@@ -22,12 +22,12 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-COPY ./root/ /root/
+COPY ./catkin_ws /catkin_ws
 
 RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
-	cd ~/catkin_ws && \
+	cd /catkin_ws && \
 	catkin_make install -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/opt/ros/$ROS_DISTRO -DCATKIN_ENABLE_TESTING=0 && \
-	cd /root && rm -rf catkin_ws
+	cd / && rm -rf catkin_ws
 
 RUN rosdep init && rosdep update
 

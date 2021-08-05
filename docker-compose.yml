@@ -14,6 +14,7 @@ services:
     volumes:
     - "/etc/localtime:/etc/localtime:ro"
     ports:
+    - "11311:11311"
     - "8080:8080"
     - "9090:9090"
 
