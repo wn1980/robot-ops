@@ -1,4 +1,4 @@
-FROM ros:noetic-ros-core-focal
+FROM ros:melodic-ros-core-bionic
 
 LABEL maintainer="Waipot Ngamsaad <waipotn@hotmail.com>"
 
@@ -15,8 +15,8 @@ RUN apt-get update && \
 	apt-get install -y \ 
 	ros-$ROS_DISTRO-rosbridge-server \
 	ros-$ROS_DISTRO-tf2-web-republisher \
-	#ros-$ROS_DISTRO-web-video-server \
-	python3-rosdep \
+	ros-$ROS_DISTRO-web-video-server \
+	python-rosdep \
 	build-essential && \
 	apt-get autoremove -y && \
     apt-get clean && \

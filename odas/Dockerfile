@@ -168,6 +168,15 @@ COPY ./app /app
 
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
 
+USER root
+
+COPY ./catkin_ws /catkin_ws
+
+RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
+	cd /catkin_ws && \
+	catkin_make install -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/opt/ros/$ROS_DISTRO -DCATKIN_ENABLE_TESTING=0 && \
+	cd / && rm -rf catkin_ws
+
 ENV DISPLAY ":1"
 
 EXPOSE 11311 8558 9901
