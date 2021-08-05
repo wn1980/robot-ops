@@ -6,11 +6,23 @@ volumes:
 services:
 
   master:
-    image: ros:noetic-ros-core-focal
+    build: ./master
+    image: wn1980/master${TAG}
     container_name: ros_master
     init: true
     restart: always
-    command: roscore
+    volumes:
+    - "/etc/localtime:/etc/localtime:ro"
+    ports:
+    - "8080:8080"
+    - "9090:9090"
+
+  #master:
+  #  image: ros:noetic-ros-core-focal
+  #  container_name: ros_master
+  #  init: true
+  #  restart: always
+  #  command: roscore
 
   ros1_bridge:
     image: ros:foxy-ros1-bridge-focal
