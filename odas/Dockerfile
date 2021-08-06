@@ -81,7 +81,7 @@ COPY ./index.html $NO_VNC_HOME
 RUN rm /etc/apt/apt.conf.d/docker-clean
 
 # install code-server
-ENV VERSION=3.11.0
+ENV VERSION=3.11.1
 RUN wget https://github.com/cdr/code-server/releases/download/v${VERSION}/code-server_${VERSION}_$(dpkg --print-architecture).deb && \
     dpkg -i code-server_${VERSION}_$(dpkg --print-architecture).deb && \
     rm -f code-server_${VERSION}_$(dpkg --print-architecture).deb
@@ -176,6 +176,25 @@ RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
 	cd /catkin_ws && \
 	catkin_make install -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/opt/ros/$ROS_DISTRO -DCATKIN_ENABLE_TESTING=0 && \
 	cd / && rm -rf catkin_ws
+
+USER $USER
+
+# install Miniconda3
+RUN curl -o ~/miniconda.sh -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-$(uname -m).sh && \
+    chmod +x ~/miniconda.sh && \
+    ~/miniconda.sh -b -p ~/conda && \
+    rm ~/miniconda.sh 
+
+# set environment path
+ENV PATH $HOME/conda/bin:$PATH
+
+RUN conda init bash && \ 
+    conda install -y python=3.6 numpy && \
+    pip install pyaudio gTTS pydub roslibpy && \
+    pip install --upgrade google-cloud-texttospeech google-cloud-dialogflow
+
+# clean
+RUN conda clean -ya
 
 ENV DISPLAY ":1"
 

@@ -81,12 +81,6 @@ COPY ./index.html $NO_VNC_HOME
 
 RUN rm /etc/apt/apt.conf.d/docker-clean
 
-# install code-server
-ENV VERSION=3.11.0
-RUN wget https://github.com/cdr/code-server/releases/download/v${VERSION}/code-server_${VERSION}_$(dpkg --print-architecture).deb && \
-    dpkg -i code-server_${VERSION}_$(dpkg --print-architecture).deb && \
-    rm -f code-server_${VERSION}_$(dpkg --print-architecture).deb
-
 # install vscode
 RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg && \
     install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/ && \
@@ -96,6 +90,12 @@ RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor 
 RUN apt-get install -y apt-transport-https && \
     apt-get update && \
     apt-get install -y code # or code-insiders
+    
+# install code-server
+ENV VERSION=3.11.1
+RUN wget https://github.com/cdr/code-server/releases/download/v${VERSION}/code-server_${VERSION}_$(dpkg --print-architecture).deb && \
+    dpkg -i code-server_${VERSION}_$(dpkg --print-architecture).deb && \
+    rm -f code-server_${VERSION}_$(dpkg --print-architecture).deb
 
 RUN rm /etc/ros/rosdep/sources.list.d/20-default.list && \
     rosdep init
