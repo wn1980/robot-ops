@@ -190,11 +190,11 @@ ENV PATH $HOME/conda/bin:$PATH
 
 RUN conda init bash && \ 
     conda install -y python=3.6 numpy && \
-    pip install pyaudio gTTS pydub roslibpy && \
-    pip install --upgrade google-cloud-texttospeech google-cloud-dialogflow
-
-# clean
-RUN conda clean -ya
+    pip install pyaudio gTTS pydub roslibpy service_identity && \
+    #pip install dialogflow &&  \
+    pip install google-cloud-dialogflow && \
+    pip install --upgrade google-cloud-texttospeech && \
+    conda clean -ya
 
 ENV DISPLAY ":1"
 
