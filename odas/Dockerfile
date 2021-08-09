@@ -189,8 +189,9 @@ RUN curl -o ~/miniconda.sh -O https://repo.anaconda.com/miniconda/Miniconda3-py3
 ENV PATH $HOME/conda/bin:$
 
 RUN conda init bash && \ 
-    conda install -y python=3.8 numpy && \
-    pip install pyaudio gTTS pydub roslibpy service_identity && \
+    #conda install -y python=3.8 && \
+    #conda install -c anaconda pyaudio && \
+    pip install gTTS pydub roslibpy service_identity && \
     pip install --upgrade google-cloud-dialogflow && \
     pip install --upgrade google-cloud-texttospeech && \
     conda clean -ya
