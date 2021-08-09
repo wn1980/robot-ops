@@ -180,19 +180,18 @@ RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
 USER $USER
 
 # install Miniconda3
-RUN curl -o ~/miniconda.sh -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-$(uname -m).sh && \
+RUN curl -o ~/miniconda.sh -O https://repo.anaconda.com/miniconda/Miniconda3-py39_4.9.2-Linux-$(uname -m).sh && \
     chmod +x ~/miniconda.sh && \
     ~/miniconda.sh -b -p ~/conda && \
     rm ~/miniconda.sh 
 
 # set environment path
-ENV PATH $HOME/conda/bin:$PATH
+ENV PATH $HOME/conda/bin:$
 
 RUN conda init bash && \ 
-    conda install -y python=3.6 numpy && \
+    conda install -y python=3.8 numpy && \
     pip install pyaudio gTTS pydub roslibpy service_identity && \
-    #pip install dialogflow &&  \
-    pip install google-cloud-dialogflow && \
+    pip install --upgrade google-cloud-dialogflow && \
     pip install --upgrade google-cloud-texttospeech && \
     conda clean -ya
 
