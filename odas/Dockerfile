@@ -170,31 +170,38 @@ RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
 
 USER root
 
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y \
+    ros-${ROS_DISTRO}-tf-conversions \
+    ros-${ROS_DISTRO}-rviz \
+    gfortran \
+    texinfo && \
+    pip install libconf numpy scipy && \
+    apt-get autoremove -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 COPY ./catkin_ws /catkin_ws
+
+RUN cd /catkin_ws/src && \
+    git clone https://github.com/introlab/audio_utils.git && \
+    cd audio_utils && \
+    git submodule update --init --recursive
+
+RUN cd /catkin_ws/src && \
+    git clone https://github.com/introlab/odas_ros.git && \
+    cd odas_ros && \
+    git submodule update --init --recursive
 
 RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
 	cd /catkin_ws && \
-	catkin_make install -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/opt/ros/$ROS_DISTRO -DCATKIN_ENABLE_TESTING=0 && \
-	cd / && rm -rf catkin_ws
+    catkin_make && \
+    echo "source /catkin_ws/devel/setup.bash" >> /home/developer/.bashrc
+	#catkin_make install -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/opt/ros/$ROS_DISTRO -DCATKIN_ENABLE_TESTING=0 && \
+	#cd / && rm -rf catkin_ws
 
 USER $USER
-
-# install Miniconda3
-RUN curl -o ~/miniconda.sh -O https://repo.anaconda.com/miniconda/Miniconda3-py37_4.10.3-Linux-$(uname -m).sh && \
-    chmod +x ~/miniconda.sh && \
-    ~/miniconda.sh -b -p ~/conda && \
-    rm ~/miniconda.sh 
-
-# set environment path
-ENV PATH $HOME/conda/bin:$
-
-RUN conda init bash && \ 
-    #conda install -y python=3.8 && \
-    conda install -c anaconda pyaudio && \
-    pip install numpy gTTS pydub roslibpy service_identity && \
-    pip install --upgrade google-cloud-dialogflow && \
-    pip install --upgrade google-cloud-texttospeech && \
-    conda clean -ya
 
 ENV DISPLAY ":1"
 
