@@ -1,5 +1,10 @@
 version: '2.3'
 
+# create default network
+networks:
+  default:
+    name: ros-network
+
 volumes:
   workspace:
 
@@ -88,7 +93,7 @@ services:
     image: wn1980/ydlidar${TAG}
     container_name: ros_ydlidar
     init: true
-    restart: unless-stopped
+    restart: "no"
     privileged: true
     depends_on:
       - workspace
