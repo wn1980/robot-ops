@@ -36,6 +36,20 @@ RUN apt-get update && \
     #ros-${ROS_DISTRO}-hector-slam \
     #ros-${ROS_DISTRO}-octomap-server \
     #ros-${ROS_DISTRO}-octomap-rviz-plugins \
+    ros-${ROS_DISTRO}-roslint \
+    ros-${ROS_DISTRO}-rosserial \
+    ros-${ROS_DISTRO}-rosserial-arduino \
+    ros-${ROS_DISTRO}-imu-filter-madgwick \
+    ros-${ROS_DISTRO}-gmapping \
+    ros-${ROS_DISTRO}-map-server \
+    ros-${ROS_DISTRO}-navigation \
+    ros-${ROS_DISTRO}-robot-localization \
+    ros-${ROS_DISTRO}-teleop-twist-keyboard \
+    ros-${ROS_DISTRO}-tf2 \
+    ros-${ROS_DISTRO}-tf2-ros \
+    ros-${ROS_DISTRO}-rviz \
+    ros-${ROS_DISTRO}-rqt \
+    ros-${ROS_DISTRO}-rqt-common-plugins \
     python-rosdep && \
     apt-get autoremove -y && \
     apt-get clean && \
