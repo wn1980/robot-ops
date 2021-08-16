@@ -189,9 +189,11 @@ RUN apt-get update && \
     apt-get install -y \
     ros-${ROS_DISTRO}-tf-conversions \
     ros-${ROS_DISTRO}-rviz \
+    python-numpy \
+    python-scipy \
     gfortran \
     texinfo && \
-    pip install libconf numpy scipy && \
+    pip install libconf && \
     apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
