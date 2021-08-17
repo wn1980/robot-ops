@@ -31,9 +31,9 @@ services:
   #  command: roscore
 
   odas:
-    build: ./odas
-    image: wn1980/odas${TAG}
-    container_name: ros_odas
+    build: ./workspace
+    image: wn1980/ros1-melodic${TAG}
+    container_name: ros1_melodic
     init: true
     restart: unless-stopped
     privileged: true
