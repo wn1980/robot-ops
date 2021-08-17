@@ -30,17 +30,6 @@ services:
   #  restart: always
   #  command: roscore
 
-  ros1_bridge:
-    image: ros:foxy-ros1-bridge-focal
-    container_name: ros1_bridge
-    init: true
-    restart: unless-stopped
-    command: ros2 run ros1_bridge dynamic_bridge
-    depends_on: 
-      - master
-    environment:
-      - ROS_MASTER_URI=http://master:11311
-
   workspace:
     build: ./workspace
     image: wn1980/workspace${TAG}
@@ -70,30 +59,6 @@ services:
       #- "11311:11311"
       - "8558:8558"
       - "9901:9901"
-
-  ros2:
-    build: ./ros2
-    image: wn1980/ros2${TAG}
-    container_name: ros2_workspace
-    init: true
-    restart: unless-stopped
-    environment:
-      - DISPLAY=:1
-    privileged: true
-    devices:
-      - "/dev:/dev"
-    volumes:
-      - "/dev:/dev"
-      - "/run/systemd:/run/systemd"
-      - "/etc/localtime:/etc/localtime:ro"
-      - "workspace:/workspace"
-    healthcheck:
-      test: ["CMD-SHELL", "test -e /tmp/.X11-unix/X1"]
-      interval: "1m"
-      retries: 20
-    ports:
-      - "8559:8558"
-      - "9902:9901"
 
   odas:
     build: ./odas
