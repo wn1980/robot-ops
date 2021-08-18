@@ -38,7 +38,7 @@ services:
     image: ros:foxy-ros1-bridge-focal
     container_name: ros1_bridge
     init: true
-    restart: unless-stopped
+    restart: always
     command: ros2 run ros1_bridge dynamic_bridge
     #depends_on: 
     #  - master

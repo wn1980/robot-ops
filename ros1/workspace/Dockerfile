@@ -50,6 +50,7 @@ RUN apt-get update && \
     ros-${ROS_DISTRO}-rviz \
     ros-${ROS_DISTRO}-rqt \
     ros-${ROS_DISTRO}-rqt-common-plugins \
+    ros-${ROS_DISTRO}-rospy-tutorials \
     python-rosdep && \
     apt-get autoremove -y && \
     apt-get clean && \
