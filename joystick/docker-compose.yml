@@ -1,0 +1,26 @@
+version: '2.3'
+
+# create default network
+networks:
+  default:
+    name: ros-network
+
+volumes:
+  workspace:
+
+services:
+
+  joystick:
+    build: ./joystick
+    image: wn1980/joystick${TAG}
+    container_name: ros_joystick
+    init: true
+    restart: unless-stopped
+    privileged: true
+    devices:
+      - "/dev/input:/dev/input"
+    volumes:
+      - "/dev/input:/dev/input"
+      - "/etc/localtime:/etc/localtime:ro"
+    environment:
+      - ROS_MASTER_URI=http://master:11311    
