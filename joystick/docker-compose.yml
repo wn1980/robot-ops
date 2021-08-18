@@ -11,7 +11,7 @@ volumes:
 services:
 
   joystick:
-    build: ./joystick
+    build: ./image
     image: wn1980/joystick${TAG}
     container_name: ros_joystick
     init: true

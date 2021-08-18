@@ -11,9 +11,9 @@ volumes:
 services:
 
   ros2:
-    build: ./ros2
+    build: ./image
     image: wn1980/ros2${TAG}
-    container_name: ros2_workspace
+    container_name: ros2_foxy
     init: true
     restart: unless-stopped
     environment:
