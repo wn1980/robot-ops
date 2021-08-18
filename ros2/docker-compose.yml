@@ -12,7 +12,7 @@ services:
 
   ros2:
     build: ./image
-    image: wn1980/ros2${TAG}
+    image: wn1980/ros2-foxy${TAG}
     container_name: ros2_foxy
     init: true
     restart: unless-stopped
@@ -31,7 +31,7 @@ services:
       interval: "1m"
       retries: 20
     ports:
-      - "8559:8558"
+      - "8559:8008"
       - "9902:9901"
 
   ros1_bridge:
