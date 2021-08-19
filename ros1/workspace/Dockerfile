@@ -10,9 +10,8 @@ RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E
 
 RUN sed -i -e 's/http:\/\/archive/mirror:\/\/mirrors/' -e 's/http:\/\/security/mirror:\/\/mirrors/' -e 's/\/ubuntu\//\/mirrors.txt/' /etc/apt/sources.list
 
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y \
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y \
     apt-transport-https \
     build-essential \
     curl \
@@ -26,9 +25,8 @@ RUN apt-get update && \
 RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list' && \
     curl -L http://packages.osrfoundation.org/gazebo.key | apt-key add -
 
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y \
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y \
     #ros-${ROS_DISTRO}-desktop-full \
     #ros-${ROS_DISTRO}-linux-peripheral-interfaces \
     #ros-${ROS_DISTRO}-diagnostics \
@@ -56,9 +54,8 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y \
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y \
     bash-completion \
     #less \
     htop \
@@ -105,9 +102,8 @@ RUN wget https://github.com/cdr/code-server/releases/download/v${VERSION}/code-s
 RUN sh -c 'echo "deb https://deb.nodesource.com/node_8.x `lsb_release -cs` main" > /etc/apt/sources.list.d/nodesource.list' && \
     curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
 
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y \
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y \
     nodejs \
     libfftw3-dev \
     libconfig-dev \
@@ -177,17 +173,10 @@ RUN git clone https://github.com/introlab/odas_web.git && \
 
 RUN wget https://raw.githubusercontent.com/respeaker/usb_4_mic_array/master/odas.cfg
 
-VOLUME /tmp/.X11-unix
-
-COPY ./app /app
-
-RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
-
 USER root
 
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y \
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y \
     ros-${ROS_DISTRO}-tf-conversions \
     ros-${ROS_DISTRO}-rviz \
     python-numpy \
@@ -219,6 +208,12 @@ RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
 	#cd / && rm -rf catkin_ws
 
 USER $USER
+
+RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
+
+VOLUME /tmp/.X11-unix
+
+COPY ./app /app
 
 ENV DISPLAY ":1"
 

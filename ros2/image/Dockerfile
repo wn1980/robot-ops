@@ -10,9 +10,8 @@ RUN  apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31
 
 RUN sed -i -e 's/http:\/\/archive/mirror:\/\/mirrors/' -e 's/http:\/\/security/mirror:\/\/mirrors/' -e 's/\/ubuntu\//\/mirrors.txt/' /etc/apt/sources.list
 
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y \
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y \
     apt-transport-https \
     build-essential \
     curl \
@@ -26,9 +25,8 @@ RUN apt-get update && \
 RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list' && \
     curl -L http://packages.osrfoundation.org/gazebo.key | apt-key add -
 
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y \
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y \
     ros-${ROS_DISTRO}-desktop \
     #ros-${ROS_DISTRO}-demo-nodes-py \
     #ros-${ROS_DISTRO}-linux-peripheral-interfaces \
@@ -42,9 +40,8 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y \
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y \
     bash-completion \
     #less \
     htop \
@@ -81,16 +78,6 @@ RUN rm -Rf $NO_VNC_HOME && \
 COPY ./index.html $NO_VNC_HOME
 
 RUN rm /etc/apt/apt.conf.d/docker-clean
-
-# install vscode
-RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg && \
-    install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/ && \
-    sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list' && \
-    rm -f packages.microsoft.gpg
-
-RUN apt-get install -y apt-transport-https && \
-    apt-get update && \
-    apt-get install -y code # or code-insiders
     
 # install code-server
 ENV VERSION=3.11.1
@@ -137,11 +124,11 @@ RUN echo "source /usr/share/bash-completion/bash_completion" >> ~/.bashrc && \
     #bash -i -c "bash-it enable completion git" && \
     echo "source ~/.bashrc" >> ~/.bash_profile 
 
+RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
+
 VOLUME /tmp/.X11-unix
 
 COPY ./app /app
-
-RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
 
 ENV DISPLAY ":1"
 
