@@ -12,7 +12,7 @@ services:
 
   master:
     build: ./master
-    image: wn1980/master${TAG}
+    image: wn1980/ros-master${TAG}
     container_name: ros_master
     init: true
     restart: always
@@ -60,6 +60,5 @@ services:
       interval: "1m"
       retries: 20
     ports:
-      #- "11311:11311"
       - "8557:8008"
       - "9901:9901"
