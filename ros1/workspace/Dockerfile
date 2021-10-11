@@ -93,7 +93,7 @@ COPY ./index.html $NO_VNC_HOME
 RUN rm /etc/apt/apt.conf.d/docker-clean
 
 # install code-server
-ENV VERSION=3.11.1
+ENV VERSION=3.12.0
 RUN wget https://github.com/cdr/code-server/releases/download/v${VERSION}/code-server_${VERSION}_$(dpkg --print-architecture).deb && \
     dpkg -i code-server_${VERSION}_$(dpkg --print-architecture).deb && \
     rm -f code-server_${VERSION}_$(dpkg --print-architecture).deb
