@@ -2,7 +2,7 @@
 
 set -e
 
-apt-get update && apt-get install -y \
+sudo apt-get update && sudo apt-get install -y \
     python3-dev \
     libffi-dev \
     libssl-dev \
@@ -10,4 +10,4 @@ apt-get update && apt-get install -y \
 
 curl https://bootstrap.pypa.io/get-pip.py | python3 -
 
-pip3 install setuptools docker-compose
+sudo pip3 install setuptools docker-compose
