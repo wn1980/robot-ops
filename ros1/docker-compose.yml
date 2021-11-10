@@ -11,7 +11,7 @@ volumes:
 services:
 
   master:
-    build: ./master
+    #build: ./master
     image: wn1980/ros-master${TAG}
     container_name: ros_master
     init: true
@@ -31,7 +31,7 @@ services:
   #  command: roscore
 
   odas:
-    build: ./workspace
+    #build: ./workspace
     image: wn1980/ros1-melodic${TAG}
     container_name: ros1_melodic
     init: true
