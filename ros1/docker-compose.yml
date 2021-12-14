@@ -30,7 +30,7 @@ services:
   #  restart: always
   #  command: roscore
 
-  odas:
+  workspace:
     build: ./workspace
     image: wn1980/ros1-melodic${TAG}
     container_name: ros1_melodic

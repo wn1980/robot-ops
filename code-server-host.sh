@@ -2,7 +2,7 @@
 
 set -e
 
-VERSION=3.11.0
+VERSION=4.0.0
 
 #if ! command -v code-server &> /dev/null
 #then
@@ -59,4 +59,4 @@ fi
 #nohup code-server --bind-addr 0.0.0.0:9889 --cert --auth none & 
 #cat nohup.out
 
-code-server --bind-addr 0.0.0.0:9889 --cert --auth none
+code-server --bind-addr 0.0.0.0:12345 --cert --auth none

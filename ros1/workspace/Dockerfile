@@ -94,7 +94,7 @@ COPY ./index.html $NO_VNC_HOME
 RUN rm /etc/apt/apt.conf.d/docker-clean
 
 # install code-server
-ENV VERSION=3.12.0
+ENV VERSION=4.0.0
 RUN wget https://github.com/cdr/code-server/releases/download/v${VERSION}/code-server_${VERSION}_$(dpkg --print-architecture).deb && \
     dpkg -i code-server_${VERSION}_$(dpkg --print-architecture).deb && \
     rm -f code-server_${VERSION}_$(dpkg --print-architecture).deb
@@ -189,28 +189,30 @@ RUN apt-get install -y \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-COPY ./catkin_ws /catkin_ws
+USER $USER
 
-RUN cd /catkin_ws/src && \
+RUN mkdir -p $HOME/catkin_ws/src
+
+COPY ./catkin_ws/src/dialogflow_msg $HOME/catkin_ws/src/
+
+RUN cd $HOME/catkin_ws/src && \
     git clone https://github.com/introlab/audio_utils.git && \
     cd audio_utils && \
     git submodule update --init --recursive
 
-RUN cd /catkin_ws/src && \
+RUN cd $HOME/catkin_ws/src && \
     git clone https://github.com/introlab/odas_ros.git && \
     cd odas_ros && \
     git submodule update --init --recursive
 
 RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
-	cd /catkin_ws && \
-    catkin_make && \
-    echo "source /catkin_ws/devel/setup.bash" >> /home/developer/.bashrc
+	cd $HOME/catkin_ws && \
+    catkin_make
 	#catkin_make install -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/opt/ros/$ROS_DISTRO -DCATKIN_ENABLE_TESTING=0 && \
 	#cd / && rm -rf catkin_ws
 
-USER $USER
-
-RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
+RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc && \
+    echo "source $HOME/catkin_ws/devel/setup.bash" >> ~/.bashrc
 
 VOLUME /tmp/.X11-unix
 
