@@ -159,20 +159,20 @@ RUN echo "source /usr/share/bash-completion/bash_completion" >> ~/.bashrc && \
     #bash -i -c "bash-it enable completion git" && \
     echo "source ~/.bashrc" >> ~/.bash_profile 
 
-RUN git clone https://github.com/introlab/odas.git && \
-    cd odas && \
-    mkdir build && \
-    cd build && \
-    cmake ../ && \
-    make
+#RUN git clone https://github.com/introlab/odas.git && \
+#    cd odas && \
+#    mkdir build && \
+#    cd build && \
+#    cmake ../ && \
+#    make
 
-RUN git clone https://github.com/introlab/odas_web.git && \
-    cd odas_web && \
-    npm install && \
-    npm audit fix && \
-    npm audit fix --force
+#RUN git clone https://github.com/introlab/odas_web.git && \
+#    cd odas_web && \
+#    npm install && \
+#    npm audit fix && \
+#    npm audit fix --force
 
-RUN wget https://raw.githubusercontent.com/respeaker/usb_4_mic_array/master/odas.cfg
+#RUN wget https://raw.githubusercontent.com/respeaker/usb_4_mic_array/master/odas.cfg
 
 USER root
 
