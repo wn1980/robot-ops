@@ -10,28 +10,28 @@ volumes:
 
 services:
 
-  master:
-    #build: ./master
-    image: wn1980/ros-master${TAG}
-    container_name: ros_master
-    init: true
-    restart: always
-    volumes:
-    - "/etc/localtime:/etc/localtime:ro"
-    ports:
-    - "11311:11311"
-    - "8080:8080"
-    - "9090:9090"
-
   #master:
-  #  image: ros:noetic-ros-core-focal
+    #build: ./master
+  #  image: wn1980/ros-master${TAG}
   #  container_name: ros_master
   #  init: true
   #  restart: always
-  #  command: roscore
+  #  volumes:
+  #  - "/etc/localtime:/etc/localtime:ro"
+  #  ports:
+  #  - "11311:11311"
+  #  - "8080:8080"
+  #  - "9090:9090"
 
-  workspace:
-    build: ./workspace
+  master:
+    image: ros:melodic-ros-core-bionic
+    container_name: ros1_master
+    init: true
+    restart: always
+    command: roscore
+
+  ros1:
+    build: ./image
     image: wn1980/ros1-melodic${TAG}
     container_name: ros1_melodic
     init: true

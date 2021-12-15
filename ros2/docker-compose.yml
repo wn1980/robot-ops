@@ -34,6 +34,13 @@ services:
       - "8559:8008"
       - "9902:9901"
 
+  #master:
+  #  image: ros:noetic-ros-core-focal
+  #  container_name: ros1_master
+  #  init: true
+  #  restart: always
+  #  command: roscore
+
   ros1_bridge:
     image: ros:foxy-ros1-bridge-focal
     container_name: ros1_bridge
