@@ -12,28 +12,15 @@ volumes:
 services:
 
   #master:
-    #build: ./master
-  #  image: wn1980/ros-master${TAG}
-  #  container_name: ros_master
+  #  image: ros:melodic-ros-core-bionic
+  #  container_name: ros1_master
   #  init: true
   #  restart: always
-  #  volumes:
-  #  - "/etc/localtime:/etc/localtime:ro"
+  #  command: roscore
+  #  expose:
+  #    - 11311
   #  ports:
-  #  - "11311:11311"
-  #  - "8080:8080"
-  #  - "9090:9090"
-
-  master:
-    image: ros:melodic-ros-core-bionic
-    container_name: ros1_master
-    init: true
-    restart: always
-    command: roscore
-    expose:
-      - 11311
-    ports:
-      - "11311:11311"
+  #    - "11311:11311"
 
   ros1:
     build: ./image
