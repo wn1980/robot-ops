@@ -1,0 +1,20 @@
+version: "2.3"
+
+networks:
+  default:
+    external:
+      name: ros-network
+
+volumes:
+  workspace:
+
+services:
+
+  webviz:
+    #build: ./image
+    image: wn1980/webviz-ros${TAG}
+    container_name: ros_webviz
+    init: true
+    restart: unless-stopped
+    ports:
+    - "8228:8080"

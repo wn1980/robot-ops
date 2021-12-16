@@ -3,12 +3,13 @@ version: '2.3'
 # create default network
 networks:
   default:
-    name: ros-network
+    external:
+      name: ros-network
 
 services:
 
   joystick:
-    build: ./image
+    #build: ./image
     image: wn1980/joystick-ros${TAG}
     container_name: ros_joystick
     init: true
