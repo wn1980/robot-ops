@@ -3,7 +3,8 @@ version: '2.3'
 # create default network
 networks:
   default:
-    name: ros-network
+    external:
+      name: ros-network
 
 volumes:
   workspace:
@@ -40,6 +41,10 @@ services:
   #  init: true
   #  restart: always
   #  command: roscore
+  #  expose:
+  #    - 11311
+  #  ports:
+  #    - "11311:11311"
 
   ros1_bridge:
     image: ros:foxy-ros1-bridge-focal
