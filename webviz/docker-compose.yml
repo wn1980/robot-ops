@@ -5,9 +5,6 @@ networks:
     external:
       name: ros-network
 
-volumes:
-  workspace:
-
 services:
 
   webviz:
