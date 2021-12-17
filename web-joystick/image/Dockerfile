@@ -31,7 +31,8 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash - && \
 
 # clone sourcecode
 RUN git clone https://github.com/husarion/webui-ros-joystick.git && \
-    cp -r webui-ros-joystick/nodejs /app
+    cp -r webui-ros-joystick/nodejs /app && \
+    rm -rf webui-ros-joystick
 
 WORKDIR /app
 
@@ -41,4 +42,3 @@ RUN npm install rosnodejs@3.0.2 socket.io@2.4.1 yargs@16.2.0 express@4.17.1 && \
 EXPOSE 8000
 
 CMD ["node", "/app/main.js"]
-
