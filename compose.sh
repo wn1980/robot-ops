@@ -9,5 +9,8 @@ sudo apt-get update && sudo apt-get install -y \
     curl
 
 curl https://bootstrap.pypa.io/get-pip.py | python3 -
+#python -m pip install --upgrade pip
+#python -m ensurepip --upgrade
+#conda config --set auto_activate_base false
 
 sudo pip3 install setuptools docker-compose
