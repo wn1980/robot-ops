@@ -23,14 +23,14 @@ services:
   #    - "11311:11311"
 
   ros1:
-    build: ./image
+    #build: ./image
     image: wn1980/ros1-melodic${TAG}
     container_name: ros1_melodic
     init: true
     restart: unless-stopped
     privileged: true
-    depends_on: 
-      - master
+    #depends_on: 
+    #  - master
     environment:
       - DISPLAY=:1
       - ROS_MASTER_URI=http://master:11311
