@@ -33,7 +33,7 @@ services:
       retries: 20
     ports:
       - "8559:8008"
-      - "9902:9901"
+      - "9902:6901"
 
   #master:
   #  image: ros:noetic-ros-core-focal

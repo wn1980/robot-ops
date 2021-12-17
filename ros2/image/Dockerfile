@@ -10,38 +10,15 @@ RUN  apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31
 
 RUN sed -i -e 's/http:\/\/archive/mirror:\/\/mirrors/' -e 's/http:\/\/security/mirror:\/\/mirrors/' -e 's/\/ubuntu\//\/mirrors.txt/' /etc/apt/sources.list
 
+# install Ubuntu packages
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y \
     apt-transport-https \
-    build-essential \
     curl \
     git \
     wget \
-    nano && \
-    apt-get autoremove -y && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list' && \
-    curl -L http://packages.osrfoundation.org/gazebo.key | apt-key add -
-
-RUN apt-get update && apt-get upgrade -y
-RUN apt-get install -y \
-    ros-${ROS_DISTRO}-desktop \
-    #ros-${ROS_DISTRO}-demo-nodes-py \
-    #ros-${ROS_DISTRO}-linux-peripheral-interfaces \
-    #ros-${ROS_DISTRO}-diagnostics \
-    #ros-${ROS_DISTRO}-navigation \
-    #ros-${ROS_DISTRO}-hector-slam \
-    #ros-${ROS_DISTRO}-octomap-server \
-    #ros-${ROS_DISTRO}-octomap-rviz-plugins \
-    python3-rosdep && \
-    apt-get autoremove -y && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-RUN apt-get update && apt-get upgrade -y
-RUN apt-get install -y \
+    nano \
+    sudo \
     bash-completion \
     #less \
     htop \
@@ -56,46 +33,98 @@ RUN apt-get install -y \
     xkb-data \
     dbus-x11 \
     net-tools \
+    iputils-ping \
     usbutils \
-    sudo \
     tigervnc-standalone-server \
     #tigervnc-xorg-extension \
-    python-is-python3 \
-    python3-pip && \
-    pip install -U --no-cache-dir supervisor supervisor_twiddler && \
-    apt-get autoremove -y && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    #python-pip \
+    python3-dev \
+	python3-pip \
+    python3-numpy \
+    python3-scipy \
+    gfortran \
+    texinfo \
+    libfftw3-dev \
+    libconfig-dev \
+    libasound2-dev \
+    libgbm-dev \
+    libnss3-dev \
+	libssl-dev \
+	libffi-dev \
+	libatlas3-base \
+	portaudio19-dev \
+	ffmpeg \
+	alsa-utils \
+    build-essential \
+    && apt-get autoremove -y \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# install ROS packages
+RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list' && \
+    curl -L http://packages.osrfoundation.org/gazebo.key | apt-key add -
+
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y \
+    ros-${ROS_DISTRO}-desktop \
+    python3-rosdep \
+    && apt-get autoremove -y \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# update pip and install some packages
+RUN curl https://bootstrap.pypa.io//get-pip.py | python3 - && \
+    #curl https://bootstrap.pypa.io/pip/2.7/get-pip.py | python - && \
+    pip install -U --no-cache-dir \
+        libconf \
+        supervisor \
+        supervisor_twiddler
 
 # install noVNC
-ENV NO_VNC_HOME=/app/noVNC
+ENV NO_VNC_HOME=/opt/noVNC
 
 RUN rm -Rf $NO_VNC_HOME && \
     mkdir -p $NO_VNC_HOME/utils/websockify && \
-    wget -qO- https://github.com/novnc/noVNC/archive/v1.2.0.tar.gz | tar xz --strip 1 -C $NO_VNC_HOME && \
+    wget -qO- https://github.com/novnc/noVNC/archive/v1.3.0.tar.gz | tar xz --strip 1 -C $NO_VNC_HOME && \
     wget -qO- https://github.com/novnc/websockify/archive/v0.10.0.tar.gz | tar xz --strip 1 -C $NO_VNC_HOME/utils/websockify
 
 COPY ./index.html $NO_VNC_HOME
-
-RUN rm /etc/apt/apt.conf.d/docker-clean
     
 # install code-server
-ENV VERSION=3.11.1
+ENV VERSION=4.0.0
 RUN wget https://github.com/cdr/code-server/releases/download/v${VERSION}/code-server_${VERSION}_$(dpkg --print-architecture).deb && \
     dpkg -i code-server_${VERSION}_$(dpkg --print-architecture).deb && \
     rm -f code-server_${VERSION}_$(dpkg --print-architecture).deb
 
+# install nodejs
+RUN sh -c 'echo "deb https://deb.nodesource.com/node_12.x `lsb_release -cs` main" > /etc/apt/sources.list.d/nodesource.list' && \
+    curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
+
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y \
+    nodejs \
+	&& rm -rf /var/lib/apt/lists/*
+
+# update tigervnc
+COPY ./app/install/tigervnc.sh /
+
+RUN /tigervnc.sh && sudo rm -f /tigervnc.sh
+
+# init rosdep
 RUN rm /etc/ros/rosdep/sources.list.d/20-default.list && \
-    rosdep init
+    rosdep init && \
+    rm /etc/apt/apt.conf.d/docker-clean
 
-RUN mkdir -p /workspace
+# setup user space
+RUN mkdir -p {/workspace,/app}
 
-# setup user
 RUN useradd -m developer && \
     usermod -aG sudo developer && \
     usermod --shell /bin/bash developer && \
     chown -R developer:developer /workspace && \
+    chown -R developer:developer /app && \
     ln -sfn /workspace /home/developer/workspace && \
+    ln -sfn /app /home/developer/app && \
     echo developer ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/developer && \
     chmod 0440 /etc/sudoers.d/developer
 
@@ -132,6 +161,6 @@ COPY ./app /app
 
 ENV DISPLAY ":1"
 
-EXPOSE 11311 8558 9901
+EXPOSE 8008 6901
 
 CMD ["sudo", "-E", "/usr/local/bin/supervisord", "-c", "/app/supervisord.conf"]
