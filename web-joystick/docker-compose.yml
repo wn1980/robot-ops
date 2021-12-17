@@ -1,0 +1,22 @@
+version: "2.3"
+
+networks:
+  default:
+    external:
+      name: ros-network
+
+volumes:
+  workspace:
+
+services:
+
+  web-joystick:
+    build: ./image
+    image: wn1980/web-joystick-ros${TAG}
+    container_name: ros_web_joystick
+    init: true
+    restart: unless-stopped
+    environment:
+      - ROS_MASTER_URI=http://master:11311   
+    ports:
+      - "3003:8000"
