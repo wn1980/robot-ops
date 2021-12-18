@@ -221,6 +221,8 @@ VOLUME /tmp/.X11-unix
 
 COPY ./app /app
 
+RUN sudo chown -R developer:developer /app
+
 ENV DISPLAY ":1"
 
 EXPOSE 8008 6901
