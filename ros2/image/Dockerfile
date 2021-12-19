@@ -89,12 +89,6 @@ RUN rm -Rf $NO_VNC_HOME && \
     wget -qO- https://github.com/novnc/websockify/archive/v0.10.0.tar.gz | tar xz --strip 1 -C $NO_VNC_HOME/utils/websockify
 
 COPY ./index.html $NO_VNC_HOME
-    
-# install code-server
-ENV VERSION=4.0.0
-RUN wget https://github.com/cdr/code-server/releases/download/v${VERSION}/code-server_${VERSION}_$(dpkg --print-architecture).deb && \
-    dpkg -i code-server_${VERSION}_$(dpkg --print-architecture).deb && \
-    rm -f code-server_${VERSION}_$(dpkg --print-architecture).deb
 
 # install nodejs
 RUN sh -c 'echo "deb https://deb.nodesource.com/node_12.x `lsb_release -cs` main" > /etc/apt/sources.list.d/nodesource.list' && \
@@ -104,6 +98,12 @@ RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y \
     nodejs \
 	&& rm -rf /var/lib/apt/lists/*
+    
+# install code-server
+ENV VERSION=4.0.0
+RUN wget https://github.com/cdr/code-server/releases/download/v${VERSION}/code-server_${VERSION}_$(dpkg --print-architecture).deb && \
+    dpkg -i code-server_${VERSION}_$(dpkg --print-architecture).deb && \
+    rm -f code-server_${VERSION}_$(dpkg --print-architecture).deb
 
 # update tigervnc
 COPY ./app/install/tigervnc.sh /
