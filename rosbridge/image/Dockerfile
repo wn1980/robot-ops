@@ -10,7 +10,7 @@ RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E
 
 RUN sed -i -e 's/http:\/\/archive/mirror:\/\/mirrors/' -e 's/http:\/\/security/mirror:\/\/mirrors/' -e 's/\/ubuntu\//\/mirrors.txt/' /etc/apt/sources.list
 
-RUN apt-get update && apt-get upgrade -y 
+RUN apt-get update --fix-missing && apt-get upgrade -y 
 RUN apt-get install -y \ 
 	ros-$ROS_DISTRO-rosbridge-server \
 	ros-$ROS_DISTRO-tf2-web-republisher \
