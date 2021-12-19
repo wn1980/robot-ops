@@ -11,16 +11,16 @@ volumes:
 
 services:
 
-  #master:
-  #  image: ros:melodic-ros-core-bionic
-  #  container_name: ros1_master
-  #  init: true
-  #  restart: always
-  #  command: roscore
-  #  expose:
-  #    - 11311
-  #  ports:
-  #    - "11311:11311"
+  master:
+    image: ros:noetic-ros-core-focal
+    container_name: ros1_master
+    init: true
+    restart: always
+    command: roscore
+    expose:
+      - 11311
+    ports:
+      - "11311:11311"
 
   ros1:
     build: ./image
