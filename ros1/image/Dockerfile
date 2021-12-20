@@ -39,6 +39,7 @@ RUN apt-get install -y \
     tigervnc-standalone-server \
     #tigervnc-xorg-extension \
     #python-pip \
+    python-is-python3 \
     python3-dev \
 	python3-pip \
     python3-numpy \
@@ -56,6 +57,11 @@ RUN apt-get install -y \
 	portaudio19-dev \
 	ffmpeg \
 	alsa-utils \
+    libfreetype6-dev \
+	pkg-config \
+	libpng-dev \
+	libusb-1.0-0 \
+	libusb-1.0-0-dev \
     build-essential \
     && apt-get autoremove -y \
     && apt-get clean \
@@ -92,15 +98,17 @@ RUN apt-get install -y \
     ros-${ROS_DISTRO}-rviz \
     ros-${ROS_DISTRO}-joy \
     ros-${ROS_DISTRO}-teleop-twist-keyboard \
+    ros-${ROS_DISTRO}-diagnostics \
     python3-rosdep \
     && apt-get autoremove -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # update pip and install some packages
-RUN curl https://bootstrap.pypa.io//get-pip.py | python3 - && \
+RUN curl https://bootstrap.pypa.io//get-pip.py | python - && \
     #curl https://bootstrap.pypa.io/pip/2.7/get-pip.py | python - && \
     pip install -U --no-cache-dir \
+        pyserial \
         libconf \
         supervisor \
         supervisor_twiddler
