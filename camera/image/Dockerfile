@@ -1,5 +1,5 @@
-#FROM ros:noetic-ros-core-focal
-FROM ros:melodic-ros-core-bionic
+FROM ros:noetic-ros-core-focal
+#FROM ros:melodic-ros-core-bionic
 
 LABEL maintainer="Waipot Ngamsaad <waipotn@hotmail.com>"
 
@@ -19,9 +19,5 @@ RUN	apt-get install -y \
 	&& rm -rf /var/lib/apt/lists/*
 
 COPY ./start.launch /
-
-#RUN usermod -aG dialout root && \
-#	usermod -aG plugdev root && \
-#	usermod -aG input root
 
 CMD ["roslaunch", "--wait", "start.launch"]

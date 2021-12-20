@@ -21,4 +21,8 @@ services:
       - "/dev:/dev"
       - "/etc/localtime:/etc/localtime:ro"
     environment:
-      - ROS_MASTER_URI=http://master:11311    
+      - ROS_MASTER_URI=http://master:11311
+      - "CAMERA_DEV=/dev/video0"
+      - IMAGE_WIDTH=640
+      - IMAGE_HIGTH=480
+      - "IMAGE_TOPIC=/camera/usb/image_raw"
