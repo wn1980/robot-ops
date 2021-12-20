@@ -13,17 +13,12 @@ RUN sed -i -e 's/http:\/\/archive/mirror:\/\/mirrors/' -e 's/http:\/\/security/m
 
 RUN apt-get update && apt-get upgrade -y
 RUN	apt-get install -y \ 
-	ros-${ROS_DISTRO}-joystick-drivers \
-	ros-${ROS_DISTRO}-teleop-twist-joy \
-	ros-${ROS_DISTRO}-joy \
-	#ros-${ROS_DISTRO}-ps3joy \
-	#ros-${ROS_DISTRO}-wiimote \
-	joystick \
+	ros-${ROS_DISTRO}-usb-cam \
 	&& apt-get autoremove -y \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
-COPY ./start.launch ./holonomic.config.yaml /
+COPY ./start.launch /
 
 #RUN usermod -aG dialout root && \
 #	usermod -aG plugdev root && \

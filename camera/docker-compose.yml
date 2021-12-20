@@ -1,0 +1,24 @@
+version: '2.3'
+
+# create default network
+networks:
+  default:
+    external:
+      name: ros-network
+
+services:
+
+  camera:
+    build: ./image
+    image: wn1980/camera-ros${TAG}
+    container_name: ros_camera
+    init: true
+    restart: unless-stopped
+    privileged: true
+    devices:
+      - "/dev:/dev"
+    volumes:
+      - "/dev:/dev"
+      - "/etc/localtime:/etc/localtime:ro"
+    environment:
+      - ROS_MASTER_URI=http://master:11311    
