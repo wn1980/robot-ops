@@ -109,6 +109,7 @@ RUN curl https://bootstrap.pypa.io//get-pip.py | python - && \
     #curl https://bootstrap.pypa.io/pip/2.7/get-pip.py | python - && \
     pip install -U --no-cache-dir \
         pyserial \
+        odrive==0.5.4 \
         libconf \
         supervisor \
         supervisor_twiddler
