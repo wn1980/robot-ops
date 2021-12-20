@@ -204,7 +204,7 @@ RUN echo "source /usr/share/bash-completion/bash_completion" >> ~/.bashrc && \
 # setup ROS workspace
 RUN mkdir -p $HOME/catkin_ws/src
 
-COPY ./catkin_ws/src/dialogflow_msg $HOME/catkin_ws/src/
+COPY ./catkin_ws/src/dialogflow_msg $HOME/catkin_ws/src/dialogflow_msg
 
 RUN cd $HOME/catkin_ws/src && \
     git clone https://github.com/introlab/audio_utils.git && \
