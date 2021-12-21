@@ -9,7 +9,7 @@ networks:
 services:
 
   camera:
-    build: ./image
+    #build: ./image
     image: wn1980/camera-ros${TAG}
     container_name: ros_camera
     init: true
