@@ -8,7 +8,7 @@ networks:
 services:
 
   rosbridge:
-    #build: ./image
+    build: ./image
     image: wn1980/ros-bridge${TAG}
     container_name: ros_bridge
     init: true
