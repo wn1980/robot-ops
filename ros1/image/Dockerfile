@@ -100,6 +100,7 @@ RUN apt-get install -y \
     ros-${ROS_DISTRO}-teleop-twist-keyboard \
     ros-${ROS_DISTRO}-diagnostics \
     ros-${ROS_DISTRO}-plotjuggler-ros \
+    ros-${ROS_DISTRO}-imu-tools \
     python3-rosdep \
     && apt-get autoremove -y \
     && apt-get clean \
