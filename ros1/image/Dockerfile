@@ -151,6 +151,23 @@ RUN rm /etc/ros/rosdep/sources.list.d/20-default.list && \
     rosdep init && \
     rm /etc/apt/apt.conf.d/docker-clean
 
+# compile turtlebot2 packages from sources
+RUN apt-get update && sudo apt-get upgrade -y 
+
+COPY ./app/install/turtlebot2.sh /
+
+RUN bash /turtlebot2.sh && \
+    #source /opt/ros/$ROS_DISTRO/setup.bash && \
+    #mkdir -p ~/turtlebot_ws/src && \
+	#cd ~/turtlebot_ws && \
+    #bash /turtlebot2.sh && \
+    #curl -sLf https://raw.githubusercontent.com/gaunthan/Turtlebot2-On-Melodic/master/install_basic.sh | bash - && \
+    #catkin_make install -DCMAKE_BUILD_TYPE=Release && \
+	#catkin_make install -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/opt/ros/$ROS_DISTRO -DCATKIN_ENABLE_TESTING=0 && \
+	#rm -rf /root/turtlebot_ws && \
+    #rm -f /turtlebot2.sh && \
+    echo "DONE"
+
 # setup user space
 RUN mkdir -p {/workspace,/app}
 
@@ -226,7 +243,9 @@ RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
 	#cd / && rm -rf catkin_ws
 
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc && \
-    echo "source $HOME/catkin_ws/devel/setup.bash" >> ~/.bashrc
+    echo "source $HOME/catkin_ws/devel/setup.bash" >> ~/.bashrc && \
+    echo "export TURTLEBOT_3D_SENSOR=asus_xtion_pro" >> ~/.bashrc && \
+    echo "export TURTLEBOT_MAP_FILE=~/workspace/maps/map.yaml" >> ~/.bashrc
 
 VOLUME /tmp/.X11-unix
 
