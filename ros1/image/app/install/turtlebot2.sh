@@ -46,6 +46,7 @@ sudo apt-get install  -y \
   ros-${ROS_DISTRO}-xacro \
   ros-${ROS_DISTRO}-robot-state-publisher \
   ros-${ROS_DISTRO}-diagnostics \
+  ros-${ROS_DISTRO}-openni2-launch \
   libsensors4-dev
 
 # make and install
