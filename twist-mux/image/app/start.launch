@@ -8,5 +8,8 @@
     <rosparam file="$(arg config_locks)" command="load"/>
     <rosparam file="$(arg config_topics)" command="load"/>
   </node>
+
+  <node pkg="web_server" type="web_server.sh" name="simple_http_server" output="screen"/>
+  
 </launch>
 

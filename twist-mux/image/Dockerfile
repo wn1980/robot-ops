@@ -14,10 +14,22 @@ RUN apt-get update --fix-missing && apt-get upgrade -y
 RUN	apt-get install -y \ 
 	ros-${ROS_DISTRO}-twist-mux \
 	ros-${ROS_DISTRO}-twist-mux-msgs \
+	build-essential \
 	&& apt-get autoremove -y \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
+RUN mkdir -p /catkin_ws/src && \
+	cd /catkin_ws/src && \
+	catkin_create_pkg web_server std_msgs rospy
+
+COPY ./scripts /catkin_ws/src/web_server/scripts
+
+RUN cd /catkin_ws && \
+	source /opt/ros/${ROS_DISTRO}/setup.bash && \
+	catkin_make
+
 COPY ./app /app
 
-CMD ["roslaunch", "--wait", "/app/start.launch"]
+#CMD ["roslaunch", "--wait", "/app/start.launch"]
+CMD source /catkin_ws/devel/setup.bash && roslaunch --wait /app/start.launch
