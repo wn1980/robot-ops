@@ -11,10 +11,10 @@ WORKDIR /app
 
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y \
-    chromium && \
-    apt-get autoremove -y && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    chromium \
+    && apt-get autoremove -y \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Build static webviz
 RUN npm update caniuse-lite browserslist && \

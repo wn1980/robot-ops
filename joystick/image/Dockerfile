@@ -15,6 +15,8 @@ RUN apt-get update --fix-missing && apt-get upgrade -y
 RUN	apt-get install -y \ 
 	ros-${ROS_DISTRO}-joy \
 	ros-${ROS_DISTRO}-teleop-twist-joy \
+	ros-${ROS_DISTRO}-twist-mux \
+	ros-${ROS_DISTRO}-twist-mux-msgs \
 	#ros-${ROS_DISTRO}-joystick-drivers \
 	#ros-${ROS_DISTRO}-ps3joy \
 	#ros-${ROS_DISTRO}-wiimote \

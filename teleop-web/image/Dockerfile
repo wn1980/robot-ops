@@ -18,12 +18,12 @@ RUN sed -i -e 's/http:\/\/archive/mirror:\/\/mirrors/' -e 's/http:\/\/security/m
 
 RUN apt-get update && apt-get upgrade -y
 RUN	apt-get install -y \ 
-	#ros-${ROS_DISTRO}-joystick-drivers \
+	#ros-${ROS_DISTRO}-joy \
     curl \
-	git && \
-	apt-get autoremove -y && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+	git \
+    && apt-get autoremove -y \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # install nodejs 12.x
 RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash - && \
@@ -33,6 +33,14 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash - && \
 RUN git clone https://github.com/husarion/webui-ros-joystick.git && \
     cp -r webui-ros-joystick/nodejs /app && \
     rm -rf webui-ros-joystick
+
+# clen
+RUN	apt-get purge -y \ 
+    curl \
+	git \
+    && apt-get autoremove -y \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
