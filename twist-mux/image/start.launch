@@ -25,7 +25,6 @@
     
   </node>
 
-  <!--
   <arg name="cmd_vel_out" default="cmd_vel"/>
   <arg name="config_locks" default="$(find twist_mux)/config/twist_mux_locks.yaml"/>
   <arg name="config_topics" default="$(find twist_mux)/config/twist_mux_topics.yaml"/>
@@ -35,5 +34,5 @@
     <rosparam file="$(arg config_locks)" command="load"/>
     <rosparam file="$(arg config_topics)" command="load"/>
   </node>
-  -->
+
 </launch>

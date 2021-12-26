@@ -1,5 +1,4 @@
 FROM ros:noetic-ros-core-focal
-#FROM ros:melodic-ros-core-bionic
 
 LABEL maintainer="Waipot Ngamsaad <waipotn@hotmail.com>"
 
@@ -13,22 +12,12 @@ RUN sed -i -e 's/http:\/\/archive/mirror:\/\/mirrors/' -e 's/http:\/\/security/m
 
 RUN apt-get update --fix-missing && apt-get upgrade -y
 RUN	apt-get install -y \ 
-	ros-${ROS_DISTRO}-joy \
-	ros-${ROS_DISTRO}-teleop-twist-joy \
-	#ros-${ROS_DISTRO}-twist-mux \
-	#ros-${ROS_DISTRO}-twist-mux-msgs \
-	#ros-${ROS_DISTRO}-joystick-drivers \
-	#ros-${ROS_DISTRO}-ps3joy \
-	#ros-${ROS_DISTRO}-wiimote \
-	joystick \
+	ros-${ROS_DISTRO}-twist-mux \
+	ros-${ROS_DISTRO}-twist-mux-msgs \
 	&& apt-get autoremove -y \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
-COPY ./start.launch ./holonomic.config.yaml /
+COPY ./app /app
 
-#RUN usermod -aG dialout root && \
-#	usermod -aG plugdev root && \
-#	usermod -aG input root
-
-CMD ["roslaunch", "--wait", "start.launch"]
+CMD ["roslaunch", "--wait", "/app/start.launch"]
