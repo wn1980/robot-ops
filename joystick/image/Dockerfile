@@ -1,5 +1,5 @@
-#FROM ros:noetic-ros-core-focal
-FROM ros:melodic-ros-core-bionic
+FROM ros:noetic-ros-core-focal
+#FROM ros:melodic-ros-core-bionic
 
 LABEL maintainer="Waipot Ngamsaad <waipotn@hotmail.com>"
 
@@ -13,9 +13,9 @@ RUN sed -i -e 's/http:\/\/archive/mirror:\/\/mirrors/' -e 's/http:\/\/security/m
 
 RUN apt-get update --fix-missing && apt-get upgrade -y
 RUN	apt-get install -y \ 
-	ros-${ROS_DISTRO}-joystick-drivers \
-	ros-${ROS_DISTRO}-teleop-twist-joy \
 	ros-${ROS_DISTRO}-joy \
+	ros-${ROS_DISTRO}-teleop-twist-joy \
+	#ros-${ROS_DISTRO}-joystick-drivers \
 	#ros-${ROS_DISTRO}-ps3joy \
 	#ros-${ROS_DISTRO}-wiimote \
 	joystick \
