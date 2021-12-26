@@ -140,12 +140,6 @@ COPY ./app/install/tigervnc.sh /
 
 RUN /tigervnc.sh && sudo rm -f /tigervnc.sh
 
-# install code-server
-ENV VERSION=3.12.0
-RUN wget https://github.com/cdr/code-server/releases/download/v${VERSION}/code-server_${VERSION}_$(dpkg --print-architecture).deb && \
-    dpkg -i code-server_${VERSION}_$(dpkg --print-architecture).deb && \
-    rm -f code-server_${VERSION}_$(dpkg --print-architecture).deb
-
 # init rosdep
 RUN rm /etc/ros/rosdep/sources.list.d/20-default.list && \
     rosdep init && \
@@ -167,6 +161,12 @@ RUN bash /turtlebot2.sh && \
 	#rm -rf /root/turtlebot_ws && \
     #rm -f /turtlebot2.sh && \
     echo "DONE"
+
+# install code-server
+ENV VERSION=3.12.0
+RUN wget https://github.com/cdr/code-server/releases/download/v${VERSION}/code-server_${VERSION}_$(dpkg --print-architecture).deb && \
+    dpkg -i code-server_${VERSION}_$(dpkg --print-architecture).deb && \
+    rm -f code-server_${VERSION}_$(dpkg --print-architecture).deb
 
 # setup user space
 RUN mkdir -p {/workspace,/app}
