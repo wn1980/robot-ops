@@ -9,7 +9,7 @@ networks:
 services:
 
   twist-mux:
-    build: ./image
+    #build: ./image
     image: wn1980/twist-mux-ros${TAG}
     container_name: ros_twist_mux
     init: true
