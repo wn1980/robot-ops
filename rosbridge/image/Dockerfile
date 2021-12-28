@@ -32,8 +32,8 @@ RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
 
 RUN rosdep init && rosdep update
 
-COPY ./start.launch /
+COPY ./rosbridge.launch /
 
 EXPOSE 8080 9090 11311
 
-CMD ["roslaunch", "start.launch"]
+CMD ["roslaunch", "--wait", "rosbridge.launch"]
