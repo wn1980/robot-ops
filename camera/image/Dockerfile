@@ -18,6 +18,6 @@ RUN	apt-get install -y \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
-COPY ./start.launch /
+COPY ./camera.launch /
 
-CMD ["roslaunch", "--wait", "start.launch"]
+CMD ["roslaunch", "--wait", "camera.launch"]

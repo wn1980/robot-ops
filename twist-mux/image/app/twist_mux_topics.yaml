@@ -8,21 +8,21 @@
 topics:
 -
   name    : navigation
-  topic   : nav_vel
+  topic   : /twist_mux/nav_vel
   timeout : 0.5
   priority: 10
 -
   name    : joystick
-  topic   : joy_vel
+  topic   : /twist_mux/joy_vel
   timeout : 0.5
   priority: 100
 -
   name    : keyboard
-  topic   : key_vel
+  topic   : /twist_mux/key_vel
   timeout : 0.5
   priority: 90
 -
   name    : tablet
-  topic   : tab_vel
+  topic   : /twist_mux/tab_vel
   timeout : 0.5
   priority: 100

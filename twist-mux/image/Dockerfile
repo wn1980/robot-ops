@@ -32,4 +32,4 @@ RUN cd /catkin_ws && \
 COPY ./app /app
 
 #CMD ["roslaunch", "--wait", "/app/start.launch"]
-CMD source /catkin_ws/devel/setup.bash && roslaunch --wait /app/start.launch
+CMD source /catkin_ws/devel/setup.bash && roslaunch --wait /app/twist_mux.launch

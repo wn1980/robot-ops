@@ -25,10 +25,10 @@ RUN	apt-get install -y \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
-COPY ./start.launch ./holonomic.config.yaml /
+COPY ./joystick.launch ./holonomic.config.yaml /
 
 #RUN usermod -aG dialout root && \
 #	usermod -aG plugdev root && \
 #	usermod -aG input root
 
-CMD ["roslaunch", "--wait", "start.launch"]
+CMD ["roslaunch", "--wait", "joystick.launch"]

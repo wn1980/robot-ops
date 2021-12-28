@@ -11,18 +11,17 @@
 locks:
 -
   name    : pause
-  topic   : pause_navigation
+  topic   : /twist_mux/pause_navigation
   timeout : 0.0
   # Same priority as joystick control, so it'll not block it.
   priority: 100
 -
   name    : loop_closure
-  topic   : stop_closing_loop
+  topic   : /twist_mux/stop_closing_loop
   timeout : 0.0
   priority: 200
 -
   name    : joystick 
-  topic   : joy_priority
+  topic   : /twist_mux/joy_priority
   timeout : 0.0
   priority: 100
-

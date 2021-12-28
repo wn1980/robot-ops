@@ -21,7 +21,7 @@
 
     <rosparam command="load" file="./holonomic.config.yaml" />
     
-    <remap from="cmd_vel" to="joy_vel"/>
+    <remap from="cmd_vel" to="/twist_mux/joy_vel"/>
     
   </node>
 
