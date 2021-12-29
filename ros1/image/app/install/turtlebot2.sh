@@ -5,11 +5,13 @@ set -e
 
 sudo apt-get install git -y
 
-rm -rf ~/turtlebot_ws
+#rm -rf ~/turtlebot_ws
 
-mkdir -p ~/turtlebot_ws/src
+#mkdir -p ~/turtlebot_ws/src
 
-cd ~/turtlebot_ws/src
+TURTLEBOT_WS=$HOME/catkin_ws
+
+cd $TURTLEBOT_WS/src
 
 git clone https://github.com/turtlebot/turtlebot.git
 git clone https://github.com/turtlebot/turtlebot_msgs.git
@@ -50,10 +52,12 @@ sudo apt-get install  -y \
   libsensors4-dev
 
 # make and install
-cd ~/turtlebot_ws
+cd $TURTLEBOT_WS
   
-source /opt/ros/${ROS_DISTRO}/setup.bash
+#source /opt/ros/${ROS_DISTRO}/setup.bash
 
-catkin_make install -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/opt/ros/${ROS_DISTRO} -DCATKIN_ENABLE_TESTING=0 
+#catkin_make
 
-rm -rf ~/turtlebot_ws 
+#catkin_make install -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/opt/ros/${ROS_DISTRO} -DCATKIN_ENABLE_TESTING=0 
+
+#rm -rf ~/turtlebot_ws 

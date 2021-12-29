@@ -23,9 +23,7 @@ services:
       - "11311:11311"
 
   ros1:
-    build: ./image
-    #image: wn1980/ros1-melodic${TAG}
-    #container_name: ros1_melodic
+    #build: ./image
     image: wn1980/ros1-noetic${TAG}
     container_name: ros1_noetic
     init: true
