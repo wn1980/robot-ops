@@ -234,6 +234,7 @@ RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
 
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc && \
     echo "source $HOME/catkin_ws/devel/setup.bash" >> ~/.bashrc && \
+    echo "export TURTLEBOT_BASE=kobuki" >> ~/.bashrc && \
     echo "export TURTLEBOT_3D_SENSOR=asus_xtion_pro" >> ~/.bashrc && \
     echo "export TURTLEBOT_MAP_FILE=~/workspace/maps/map.yaml" >> ~/.bashrc
 
