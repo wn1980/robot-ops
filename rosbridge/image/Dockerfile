@@ -1,5 +1,6 @@
-FROM ros:noetic-ros-core-focal
-#FROM ros:melodic-ros-core-bionic
+#FROM ros:noetic-ros-core-focal
+FROM ros:melodic-ros-core-bionic
+# Not stable in Noetic
 
 LABEL maintainer="Waipot Ngamsaad <waipotn@hotmail.com>"
 
@@ -16,7 +17,7 @@ RUN apt-get install -y \
 	ros-$ROS_DISTRO-rosbridge-server \
 	ros-$ROS_DISTRO-tf2-web-republisher \
 	ros-$ROS_DISTRO-web-video-server \
-	python3-rosdep \
+	python-rosdep \
 	build-essential \
 	&& apt-get autoremove -y \
 	&& apt-get clean \
