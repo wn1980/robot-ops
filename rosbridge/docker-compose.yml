@@ -1,0 +1,22 @@
+version: '2.3'
+
+networks:
+  default:
+    external:
+      name: ros-network
+
+services:
+
+  rosbridge:
+    #build: ./image
+    image: wn1980/ros-bridge${TAG}
+    container_name: ros_bridge
+    init: true
+    restart: unless-stopped
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+    environment:
+      - ROS_MASTER_URI=http://master:11311
+    ports:
+      - "8080:8080"
+      - "9090:9090"
