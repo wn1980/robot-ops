@@ -14,4 +14,4 @@ services:
     init: true
     restart: unless-stopped
     ports:
-      - "8228:8080"
+      - "1000:8080"
