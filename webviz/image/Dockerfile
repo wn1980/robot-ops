@@ -21,6 +21,12 @@ RUN npm update caniuse-lite browserslist && \
     npm run install-ci && \
     npm run build-static-webviz
 
+# redirect index.html
+RUN cd /app/__static_webviz__ && \
+    mv index.html main.html
+
+COPY ./index.html /app/__static_webviz__/
+
 # Start again with a clean nginx container
 FROM nginx:1-alpine
 
