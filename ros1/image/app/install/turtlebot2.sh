@@ -43,6 +43,7 @@ sudo apt-get install  -y \
   ros-${ROS_DISTRO}-ecl-streams \
   ros-${ROS_DISTRO}-depthimage-to-laserscan \
   ros-${ROS_DISTRO}-depth-image-proc \
+  ros-${ROS_DISTRO}-vision-opencv \
   ros-${ROS_DISTRO}-gazebo-ros \
   ros-${ROS_DISTRO}-gazebo-plugins \
   ros-${ROS_DISTRO}-xacro \
