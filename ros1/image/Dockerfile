@@ -140,16 +140,17 @@ COPY ./app/install/tigervnc.sh /
 
 RUN /tigervnc.sh && sudo rm -f /tigervnc.sh
 
+# install code-server
+ENV CS_VERSION=3.12.0
+
+COPY ./app/install/code-server.sh /
+
+RUN /code-server.sh $CS_VERSION && sudo rm -f /code-server.sh
+
 # init rosdep
 RUN rm /etc/ros/rosdep/sources.list.d/20-default.list && \
     rosdep init && \
     rm /etc/apt/apt.conf.d/docker-clean
-
-# install code-server
-ENV VERSION=3.12.0
-RUN wget https://github.com/cdr/code-server/releases/download/v${VERSION}/code-server_${VERSION}_$(dpkg --print-architecture).deb && \
-    dpkg -i code-server_${VERSION}_$(dpkg --print-architecture).deb && \
-    rm -f code-server_${VERSION}_$(dpkg --print-architecture).deb
 
 # setup user space
 RUN mkdir -p {/workspace,/app}
@@ -215,22 +216,13 @@ RUN sudo apt-get update && sudo apt-get upgrade -y
 COPY ./app/install/turtlebot2.sh /
 
 RUN bash /turtlebot2.sh && \
-    #source /opt/ros/$ROS_DISTRO/setup.bash && \
-    #mkdir -p ~/turtlebot_ws/src && \
-	#cd ~/turtlebot_ws && \
-    #bash /turtlebot2.sh && \
-    #curl -sLf https://raw.githubusercontent.com/gaunthan/Turtlebot2-On-Melodic/master/install_basic.sh | bash - && \
-    #catkin_make install -DCMAKE_BUILD_TYPE=Release && \
-	#catkin_make install -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/opt/ros/$ROS_DISTRO -DCATKIN_ENABLE_TESTING=0 && \
-	#rm -rf /root/turtlebot_ws && \
-    #rm -f /turtlebot2.sh && \
+    sudo rm -f /turtlebot2.sh && \
+    cd $HOME/catkin_ws && \
+    source /opt/ros/$ROS_DISTRO/setup.bash && \
+    catkin_make && \
+    #catkin_make install -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/opt/ros/$ROS_DISTRO -DCATKIN_ENABLE_TESTING=0 && \
+	#rm -rf /catkin_ws && \
     echo "DONE"
-
-RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
-	cd $HOME/catkin_ws && \
-    catkin_make
-	#catkin_make install -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/opt/ros/$ROS_DISTRO -DCATKIN_ENABLE_TESTING=0 && \
-	#cd / && rm -rf catkin_ws
 
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc && \
     echo "source $HOME/catkin_ws/devel/setup.bash" >> ~/.bashrc && \

@@ -21,10 +21,15 @@ else
     exit 0
 fi
 
+if type -P code-server
+then 
+    sudo apt purge -y code-server
+fi
+
 FILE=code-server_${VERSION}_${ARCH}.deb
 wget https://github.com/cdr/code-server/releases/download/v${VERSION}/$FILE
+
 sudo apt update && sudo apt -y upgrade
-sudo apt purge -y code-server
 sudo apt install -y ./$FILE
 sudo apt-get autoremove -y 
 sudo apt-get clean 
