@@ -5,39 +5,41 @@ set -e
 
 sudo apt-get install git -y
 
-#rm -rf ~/turtlebot_ws
-
-#mkdir -p ~/turtlebot_ws/src
-
 TURTLEBOT_WS=$HOME/catkin_ws
 
-cd $TURTLEBOT_WS/src
+if [ ! -d $TURTLEBOT_WS ]; then
 
-git clone https://github.com/turtlebot/turtlebot.git
-git clone https://github.com/turtlebot/turtlebot_msgs.git
-git clone https://github.com/turtlebot/turtlebot_apps.git
-git clone https://github.com/turtlebot/turtlebot_simulator.git
-git clone https://github.com/turtlebot/turtlebot_viz.git
+  mkdir -p $TURTLEBOT_WS/src
 
-#git clone https://github.com/yujinrobot/kobuki_msgs.git
+  cd $TURTLEBOT_WS/src
 
-git clone --single-branch --branch melodic https://github.com/yujinrobot/kobuki.git
-mv kobuki/kobuki_description kobuki/kobuki_node \
-  kobuki/kobuki_keyop kobuki/kobuki_safety_controller \
-  kobuki/kobuki_bumper2pc kobuki/kobuki_auto_docking ./
-rm -rf kobuki
+  git clone https://github.com/turtlebot/turtlebot.git
+  git clone https://github.com/turtlebot/turtlebot_msgs.git
+  git clone https://github.com/turtlebot/turtlebot_apps.git
+  git clone https://github.com/turtlebot/turtlebot_simulator.git
+  git clone https://github.com/turtlebot/turtlebot_viz.git
 
-git clone --single-branch --branch melodic https://github.com/yujinrobot/kobuki_desktop.git
-mv kobuki_desktop/kobuki_gazebo_plugins kobuki_desktop/kobuki_dashboard ./
-rm -rf kobuki_desktop
+  #git clone https://github.com/yujinrobot/kobuki_msgs.git
 
-git clone https://github.com/yujinrobot/yujin_ocs.git
-mv  yujin_ocs/yocs_cmd_vel_mux yujin_ocs/yocs_controllers yujin_ocs/yocs_velocity_smoother ./
-rm -rf yujin_ocs
+  git clone --single-branch --branch melodic https://github.com/yujinrobot/kobuki.git
+  mv kobuki/kobuki_description kobuki/kobuki_node \
+    kobuki/kobuki_keyop kobuki/kobuki_safety_controller \
+    kobuki/kobuki_bumper2pc kobuki/kobuki_auto_docking ./
+  rm -rf kobuki
 
-git clone https://github.com/ros-drivers/linux_peripheral_interfaces.git
+  git clone --single-branch --branch melodic https://github.com/yujinrobot/kobuki_desktop.git
+  mv kobuki_desktop/kobuki_gazebo_plugins kobuki_desktop/kobuki_dashboard ./
+  rm -rf kobuki_desktop
 
-git clone https://github.com/YDLIDAR/ydlidar_ros.git
+  git clone https://github.com/yujinrobot/yujin_ocs.git
+  mv  yujin_ocs/yocs_cmd_vel_mux yujin_ocs/yocs_controllers yujin_ocs/yocs_velocity_smoother ./
+  rm -rf yujin_ocs
+
+  git clone https://github.com/ros-drivers/linux_peripheral_interfaces.git
+
+  git clone https://github.com/YDLIDAR/ydlidar_ros.git
+
+fi
 
 sudo apt-get install  -y \
   ros-${ROS_DISTRO}-kobuki-core \
