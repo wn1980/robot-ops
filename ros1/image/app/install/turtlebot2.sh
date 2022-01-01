@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#Based on: https://github.com/gaunthan/Turtlebot2-On-Melodic
+# Based on: https://github.com/gaunthan/Turtlebot2-On-Melodic
 
 set -e
 
@@ -7,7 +7,7 @@ sudo apt-get install git -y
 
 TURTLEBOT_WS=$HOME/catkin_ws
 
-if [ ! -d $TURTLEBOT_WS ]; then
+if [ ! -d $TURTLEBOT_WS/src/turtlebot ]; then
 
   mkdir -p $TURTLEBOT_WS/src
 
@@ -41,6 +41,7 @@ if [ ! -d $TURTLEBOT_WS ]; then
 
 fi
 
+sudo apt-get update && sudo apt-get upgrade -y 
 sudo apt-get install  -y \
   ros-${ROS_DISTRO}-kobuki-core \
   ros-${ROS_DISTRO}-kobuki-msgs \
@@ -56,7 +57,10 @@ sudo apt-get install  -y \
   ros-${ROS_DISTRO}-robot-state-publisher \
   ros-${ROS_DISTRO}-diagnostics \
   ros-${ROS_DISTRO}-rqt-robot-dashboard \
-  libsensors4-dev
+  libsensors4-dev \
+  && apt-get autoremove -y \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
 
 # make and install
 cd $TURTLEBOT_WS

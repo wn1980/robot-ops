@@ -36,6 +36,7 @@ RUN apt-get install -y \
     net-tools \
     iputils-ping \
     usbutils \
+    man \
     tigervnc-standalone-server \
     #tigervnc-xorg-extension \
     #python-pip \
@@ -74,12 +75,6 @@ RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y \
     #ros-${ROS_DISTRO}-desktop-full \
-    #ros-${ROS_DISTRO}-linux-peripheral-interfaces \
-    #ros-${ROS_DISTRO}-diagnostics \
-    #ros-${ROS_DISTRO}-navigation \
-    #ros-${ROS_DISTRO}-hector-slam \
-    #ros-${ROS_DISTRO}-octomap-server \
-    #ros-${ROS_DISTRO}-octomap-rviz-plugins \
     ros-${ROS_DISTRO}-roslint \
     ros-${ROS_DISTRO}-rosserial \
     ros-${ROS_DISTRO}-rosserial-arduino \
@@ -116,16 +111,6 @@ RUN curl https://bootstrap.pypa.io//get-pip.py | python - && \
         supervisor \
         supervisor_twiddler
 
-# install noVNC
-ENV NO_VNC_HOME=/opt/noVNC
-
-RUN rm -Rf $NO_VNC_HOME && \
-    mkdir -p $NO_VNC_HOME/utils/websockify && \
-    wget -qO- https://github.com/novnc/noVNC/archive/v1.3.0.tar.gz | tar xz --strip 1 -C $NO_VNC_HOME && \
-    wget -qO- https://github.com/novnc/websockify/archive/v0.10.0.tar.gz | tar xz --strip 1 -C $NO_VNC_HOME/utils/websockify
-
-COPY ./index.html $NO_VNC_HOME
-
 # install nodejs
 RUN sh -c 'echo "deb https://deb.nodesource.com/node_12.x `lsb_release -cs` main" > /etc/apt/sources.list.d/nodesource.list' && \
     curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
@@ -139,6 +124,21 @@ RUN apt-get install -y \
 COPY ./app/install/tigervnc.sh /
 
 RUN /tigervnc.sh && sudo rm -f /tigervnc.sh
+
+# install noVNC
+#ENV NO_VNC_HOME=/opt/noVNC
+
+#RUN rm -Rf $NO_VNC_HOME && \
+#    mkdir -p $NO_VNC_HOME/utils/websockify && \
+#    wget -qO- https://github.com/novnc/noVNC/archive/v1.3.0.tar.gz | tar xz --strip 1 -C $NO_VNC_HOME && \
+#    wget -qO- https://github.com/novnc/websockify/archive/v0.10.0.tar.gz | tar xz --strip 1 -C $NO_VNC_HOME/utils/websockify
+
+#COPY ./index.html $NO_VNC_HOME
+
+# install noVNC
+COPY ./app/install/no-vnc.sh /
+
+RUN /no-vnc.sh && sudo rm -f /no-vnc.sh
 
 # install code-server
 COPY ./app/install/code-server.sh /
@@ -209,8 +209,6 @@ RUN mkdir -p $HOME/catkin_ws/src
 COPY ./catkin_ws/src/dialogflow_msg $HOME/catkin_ws/src/dialogflow_msg
 
 # compile turtlebot2 packages from sources
-RUN sudo apt-get update && sudo apt-get upgrade -y 
-
 COPY ./app/install/turtlebot2.sh /
 
 RUN bash /turtlebot2.sh && \
