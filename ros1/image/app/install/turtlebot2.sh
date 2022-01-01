@@ -37,6 +37,8 @@ rm -rf yujin_ocs
 
 git clone https://github.com/ros-drivers/linux_peripheral_interfaces.git
 
+git clone https://github.com/YDLIDAR/ydlidar_ros.git
+
 sudo apt-get install  -y \
   ros-${ROS_DISTRO}-kobuki-core \
   ros-${ROS_DISTRO}-kobuki-msgs \
@@ -44,12 +46,13 @@ sudo apt-get install  -y \
   ros-${ROS_DISTRO}-depthimage-to-laserscan \
   ros-${ROS_DISTRO}-depth-image-proc \
   ros-${ROS_DISTRO}-vision-opencv \
+  ros-${ROS_DISTRO}-image-transport-plugins \
+  ros-${ROS_DISTRO}-openni2-launch \
   ros-${ROS_DISTRO}-gazebo-ros \
   ros-${ROS_DISTRO}-gazebo-plugins \
   ros-${ROS_DISTRO}-xacro \
   ros-${ROS_DISTRO}-robot-state-publisher \
   ros-${ROS_DISTRO}-diagnostics \
-  ros-${ROS_DISTRO}-openni2-launch \
   ros-${ROS_DISTRO}-rqt-robot-dashboard \
   libsensors4-dev
 

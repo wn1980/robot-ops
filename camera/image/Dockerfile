@@ -14,6 +14,7 @@ RUN sed -i -e 's/http:\/\/archive/mirror:\/\/mirrors/' -e 's/http:\/\/security/m
 RUN apt-get update && apt-get upgrade -y
 RUN	apt-get install -y \ 
 	ros-${ROS_DISTRO}-usb-cam \
+	ros-${ROS_DISTRO}-image-transport-plugins \
 	&& apt-get autoremove -y \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
