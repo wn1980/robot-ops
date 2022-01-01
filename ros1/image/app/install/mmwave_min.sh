@@ -14,7 +14,7 @@ sudo apt-get install -y \
     ros-${ROS_DISTRO}-vision-opencv \
     ros-${ROS_DISTRO}-depth-image-proc \
     ros-${ROS_DISTRO}-joy \
-    ros-${ROS_DISTRO}-serial \
+    #ros-${ROS_DISTRO}-serial \
 
 cd /workspace
 
@@ -41,6 +41,7 @@ cd ~/workspace/turtlebot2_mmwave_ws/src
 
 if [ ! -d "turtlebot_mmwave_1843" ]; then
     git clone https://github.com/wn1980/turtlebot_mmwave_1843.git
+    git clone https://github.com/wjwwood/serial.git
 fi
 
 cd ~/workspace/turtlebot2_mmwave_ws
