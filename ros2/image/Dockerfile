@@ -80,16 +80,6 @@ RUN curl https://bootstrap.pypa.io//get-pip.py | python3 - && \
         supervisor \
         supervisor_twiddler
 
-# install noVNC
-ENV NO_VNC_HOME=/opt/noVNC
-
-RUN rm -Rf $NO_VNC_HOME && \
-    mkdir -p $NO_VNC_HOME/utils/websockify && \
-    wget -qO- https://github.com/novnc/noVNC/archive/v1.3.0.tar.gz | tar xz --strip 1 -C $NO_VNC_HOME && \
-    wget -qO- https://github.com/novnc/websockify/archive/v0.10.0.tar.gz | tar xz --strip 1 -C $NO_VNC_HOME/utils/websockify
-
-COPY ./index.html $NO_VNC_HOME
-
 # install nodejs
 RUN sh -c 'echo "deb https://deb.nodesource.com/node_12.x `lsb_release -cs` main" > /etc/apt/sources.list.d/nodesource.list' && \
     curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
@@ -104,11 +94,15 @@ COPY ./app/install/tigervnc.sh /
 
 RUN /tigervnc.sh && sudo rm -f /tigervnc.sh
 
+# install noVNC
+COPY ./app/install/no-vnc.sh /
+
+RUN /no-vnc.sh && sudo rm -f /no-vnc.sh
+
 # install code-server
-ENV VERSION=3.12.0
-RUN wget https://github.com/cdr/code-server/releases/download/v${VERSION}/code-server_${VERSION}_$(dpkg --print-architecture).deb && \
-    dpkg -i code-server_${VERSION}_$(dpkg --print-architecture).deb && \
-    rm -f code-server_${VERSION}_$(dpkg --print-architecture).deb
+COPY ./app/install/code-server.sh /
+
+RUN /code-server.sh 3.12.0 && sudo rm -f /code-server.sh
 
 # init rosdep
 RUN rm /etc/ros/rosdep/sources.list.d/20-default.list && \
