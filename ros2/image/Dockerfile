@@ -147,7 +147,19 @@ RUN echo "source /usr/share/bash-completion/bash_completion" >> ~/.bashrc && \
     #bash -i -c "bash-it enable completion git" && \
     echo "source ~/.bashrc" >> ~/.bash_profile 
 
-RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
+# compile turtlebot2 packages from sources
+COPY ./app/install/turtlebot2.sh /
+
+RUN mkdir -p $HOME/dev_ws/src && \
+    bash /turtlebot2.sh && \
+    sudo rm -f /turtlebot2.sh && \
+    echo "DONE"
+
+RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc && \
+    echo "source $HOME/dev_ws/install/setup.bash" >> ~/.bashrc && \
+    echo "export TURTLEBOT_BASE=kobuki" >> ~/.bashrc && \
+    echo "export TURTLEBOT_3D_SENSOR=asus_xtion_pro" >> ~/.bashrc && \
+    echo "export TURTLEBOT_MAP_FILE=~/workspace/maps/map.yaml" >> ~/.bashrc
 
 VOLUME /tmp/.X11-unix
 

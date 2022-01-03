@@ -30,9 +30,10 @@ fi
 
 sudo apt-get update && sudo apt-get upgrade -y 
 sudo apt-get install  -y \
-  ros-${ROS_DISTRO}-kobuki-core \
-  ros-${ROS_DISTRO}-kobuki-ftdi \
-  ros-${ROS_DISTRO}-kobuki-firmware \
+#  ros-${ROS_DISTRO}-kobuki-core \
+#  ros-${ROS_DISTRO}-kobuki-ftdi \
+#  ros-${ROS_DISTRO}-kobuki-firmware \
+  man \
   && apt-get autoremove -y \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
@@ -40,7 +41,7 @@ sudo apt-get install  -y \
 # make and install
 cd $TURTLEBOT_WS
 
-rosdep install -i --from-path src --rosdistro foxy -y
+sudo rosdep install -i --from-path src --rosdistro foxy -y
   
 source /opt/ros/${ROS_DISTRO}/setup.bash
 
