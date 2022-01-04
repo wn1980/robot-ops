@@ -24,19 +24,23 @@ if [ ! -d $TURTLEBOT_WS/src/kobuki_ros ]; then
   git clone https://github.com/kobuki-base/velocity_smoother.git
   git clone https://github.com/kobuki-base/cmd_vel_mux.git
 
-  git clone https://github.com/YDLIDAR/ydlidar_ros2.git
+  # Additionals
+  git clone https://github.com/YDLIDAR/ydlidar_ros2_driver.git
+  git clone https://github.com/wn1980/turtlebot2_ros2.git
 
 fi
 
 sudo apt-get update && sudo apt-get upgrade -y 
-sudo apt-get install  -y \
-#  ros-${ROS_DISTRO}-kobuki-core \
-#  ros-${ROS_DISTRO}-kobuki-ftdi \
-#  ros-${ROS_DISTRO}-kobuki-firmware \
-  man \
-  && apt-get autoremove -y \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
+
+# install ydlidar_sdk first
+cd ~
+git clone https://github.com/YDLIDAR/YDLidar-SDK.git 
+cd YDLidar-SDK
+mkdir -p build
+cd build
+cmake ..
+sudo make install
+rm -rf ~/YDLidar-SDK
 
 # make and install
 cd $TURTLEBOT_WS
@@ -45,4 +49,14 @@ sudo rosdep install -i --from-path src --rosdistro foxy -y
   
 source /opt/ros/${ROS_DISTRO}/setup.bash
 
-colcon build
+colcon build --symlink-install
+
+# Install additionals and clean
+sudo apt-get install  -y \
+  #ros-${ROS_DISTRO}-kobuki-core \
+  #ros-${ROS_DISTRO}-kobuki-ftdi \
+  #ros-${ROS_DISTRO}-kobuki-firmware \
+  man \
+  && sudo apt-get autoremove -y \
+  && sudo apt-get clean \
+  && sudo rm -rf /var/lib/apt/lists/*
