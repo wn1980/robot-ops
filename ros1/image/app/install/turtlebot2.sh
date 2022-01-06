@@ -38,6 +38,7 @@ if [ ! -d $TURTLEBOT_WS/src/turtlebot ]; then
   git clone https://github.com/ros-drivers/linux_peripheral_interfaces.git
 
   git clone https://github.com/YDLIDAR/ydlidar_ros.git
+  git clone https://github.com/wn1980/turtlebot_laser.git
 
 fi
 
