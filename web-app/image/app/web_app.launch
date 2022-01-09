@@ -1,4 +1,5 @@
 <launch>
+<!--
   <arg name="cmd_vel_out" default="cmd_vel"/>
   <arg name="config_locks" default="/app/twist_mux_locks.yaml"/>
   <arg name="config_topics" default="/app/twist_mux_topics.yaml"/>
@@ -8,6 +9,7 @@
     <rosparam file="$(arg config_locks)" command="load"/>
     <rosparam file="$(arg config_topics)" command="load"/>
   </node>
+-->
 
   <node pkg="web_server" type="web_server.sh" name="simple_http_server" output="screen"/>
   

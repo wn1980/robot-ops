@@ -2,8 +2,6 @@
 
 FROM node:12.22 AS builder
 
-LABEL maintainer="Waipot Ngamsaad <waipotn@hotmail.com>"
-
 # clone sourcecode
 RUN git clone https://github.com/cruise-automation/webviz.git /app
 
@@ -29,6 +27,8 @@ COPY ./index.html /app/__static_webviz__/
 
 # Start again with a clean nginx container
 FROM nginx:1-alpine
+
+LABEL maintainer="Waipot Ngamsaad <waipotn@hotmail.com>"
 
 # For backwards compatibility, patch the server config to change the port
 RUN sed -i 's/listen  *80;/listen 8080;/g' /etc/nginx/conf.d/default.conf

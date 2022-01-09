@@ -1,3 +1,11 @@
+FROM node:14.18 as builder
+
+COPY ./ros-web-control /app
+
+WORKDIR /app
+
+RUN npm run build
+
 FROM ros:noetic-ros-core-focal
 
 LABEL maintainer="Waipot Ngamsaad <waipotn@hotmail.com>"
@@ -12,12 +20,13 @@ RUN sed -i -e 's/http:\/\/archive/mirror:\/\/mirrors/' -e 's/http:\/\/security/m
 
 RUN apt-get update --fix-missing && apt-get upgrade -y
 RUN	apt-get install -y \ 
-	ros-${ROS_DISTRO}-twist-mux \
-	ros-${ROS_DISTRO}-twist-mux-msgs \
+#	ros-${ROS_DISTRO}-twist-mux \
+#	ros-${ROS_DISTRO}-twist-mux-msgs \
 	build-essential \
-	&& apt-get autoremove -y \
-	&& apt-get clean \
-	&& rm -rf /var/lib/apt/lists/*
+#	&& apt-get autoremove -y \
+#	&& apt-get clean \
+#	&& rm -rf /var/lib/apt/lists/* \
+	&& echo "DONE"
 
 RUN mkdir -p /catkin_ws/src && \
 	cd /catkin_ws/src && \
@@ -31,5 +40,6 @@ RUN cd /catkin_ws && \
 
 COPY ./app /app
 
-#CMD ["roslaunch", "--wait", "/app/start.launch"]
-CMD source /catkin_ws/devel/setup.bash && roslaunch --wait /app/twist_mux.launch
+COPY --from=builder /app/build /app/html
+
+CMD source /catkin_ws/devel/setup.bash && roslaunch --wait /app/web_app.launch
