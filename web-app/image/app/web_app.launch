@@ -14,4 +14,3 @@
   <node pkg="web_server" type="web_server.sh" name="simple_http_server" output="screen"/>
   
 </launch>
-

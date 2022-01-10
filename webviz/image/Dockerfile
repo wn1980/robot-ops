@@ -21,7 +21,7 @@ RUN npm update caniuse-lite browserslist && \
 
 # redirect index.html
 RUN cd /app/__static_webviz__ && \
-    mv index.html main.html
+    mv index.html webviz.html
 
 COPY ./index.html /app/__static_webviz__/
 
