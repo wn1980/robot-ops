@@ -14,10 +14,12 @@ export default Home;
 */
 
 import Map from "./components/Map";
+import Connect from "./components/Connect";
 
 export default function Home(){
     return(
         <div>
+            <Connect/>
             <Map/>
         </div>
     );
