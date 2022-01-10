@@ -8,8 +8,8 @@ class Map extends Component {
     init() {
         // Connect to ROS.
         var ros = new window.ROSLIB.Ros({
-          url: 'ws://rk3399.local:9090',
-          //url: 'ws://' + document.location.hostname + ':9090'
+          //url: 'ws://rk3399.local:9090',
+          url: 'ws://' + document.location.hostname + ':9090'
         });
     
         // Create the main viewer.

@@ -36,9 +36,30 @@
     <script src="js/nav2djs/navigator/OccupancyGridClientNav.js"></script>
     <script src="js/nav2djs/navigator/Navigator.js"></script>
     <script src="js/nav2djs/navigator/ImageMapClientNav.js"></script>
+
+    <script src="js/keyboardteleop.min.js"></script>
+
+    <script>
+      /**
+       * Setup all GUI elements when the page is loaded. 
+       */
+      function keyop() {
+        // Connecting to ROS.
+        var ros = new ROSLIB.Ros({
+          url : 'ws://' + document.location.hostname + ':9090'
+        });
+    
+        // Initialize the teleop.
+        var teleop = new KEYBOARDTELEOP.Teleop({
+          ros : ros,
+          topic : '/cmd_vel_mux/input/teleop'
+        });   
+      }
+
+    </script>
     
   </head>
-  <body>
+  <body onload="keyop()">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--
