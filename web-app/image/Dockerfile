@@ -4,8 +4,9 @@ COPY ./ros-web-control /app
 
 WORKDIR /app
 
-RUN npm run build
+RUN npm install && npm run build
 
+# main image
 FROM ros:noetic-ros-core-focal
 
 LABEL maintainer="Waipot Ngamsaad <waipotn@hotmail.com>"

@@ -69,8 +69,13 @@ export default function Header() {
 
     var ros_desktop = base_url + ":9901";
     var code_server = base_url + ":8557";
+
+    var ros_desktop2 = base_url + ":9902";
+    var code_server2 = base_url + ":8559";
+
     var webviz = base_url + ":1000";
     var web_vdo_server = base_url + ":8080";
+
     var portainer = base_url + ":9000";
 
     return(
@@ -89,10 +94,6 @@ export default function Header() {
                             <a className="nav-link active" aria-current="page" href="/">Home</a>
                         </li>
 
-                        <li className="nav-item">
-                            <a className="nav-link" href="/settings">Settings</a>
-                        </li>
-
                         <li className="nav-item dropdown">
 
                             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -100,8 +101,16 @@ export default function Header() {
                             </a>
 
                             <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a className="dropdown-item" href={ros_desktop} target="_blank" rel="noreferrer" >ROS-desktop</a></li>
-                                <li><a className="dropdown-item" href={code_server} target="_blank" rel="noreferrer" >code-server</a></li>
+                                <li><a className="dropdown-item" href={ros_desktop} target="_blank" rel="noreferrer" >Desktop (ROS1)</a></li>
+                                <li><a className="dropdown-item" href={code_server} target="_blank" rel="noreferrer" >code-server (ROS1)</a></li>
+
+                                <li><hr className="dropdown-divider"/></li>
+
+                                <li><a className="dropdown-item" href={ros_desktop2} target="_blank" rel="noreferrer" >Desktop (ROS2)</a></li>
+                                <li><a className="dropdown-item" href={code_server2} target="_blank" rel="noreferrer" >code-server (ROS2)</a></li>
+
+                                <li><hr className="dropdown-divider"/></li>
+
                                 <li><a className="dropdown-item" href={webviz} target="_blank" rel="noreferrer" >webviz</a></li>
                                 <li><a className="dropdown-item" href={web_vdo_server} target="_blank" rel="noreferrer" >web-vdo-server</a></li>
 
@@ -111,6 +120,10 @@ export default function Header() {
                                     <a className="dropdown-item" href={portainer} target="_blank" rel="noreferrer" >portainer</a>
                                 </li>
                             </ul>
+                        </li>
+
+                        <li className="nav-item">
+                            <a className="nav-link" href="/settings">Settings</a>
                         </li>
 
                         <li className="nav-item">
