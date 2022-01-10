@@ -4,30 +4,29 @@ import { Alert } from "react-bootstrap";
 class Connect extends Component {
 
     state = {
-        connected: true,
-        ros: null
+        connected: false,
     };
 
     url = 'ws://' + document.location.hostname + ':9090'
 
     init_connection(){
-        this.state.ros = new window.ROSLIB.Ros();
-        console.log(this.state.ros);
+        var ros = new window.ROSLIB.Ros();
+        console.log(ros);
 
-        this.state.ros.on("connection", () => {
+        ros.on("connection", () => {
             console.log("Connection established!");
             this.setState({connected: true});
         });
 
-
-        this.state.ros.on("close", () => {
+        ros.on("close", () => {
             console.log("Connection closed!");
             this.setState({connected: false});
 
             //try to reconnect
             setTimeout(() => {
                 try{
-                    this.state.ros.connect(this.url);
+                    ros.connect(this.url);
+                    this.setState({connected: true});
                 } catch (error){
                     console.log("Connection to ROS failed!");
                 }
@@ -45,7 +44,7 @@ class Connect extends Component {
             <div>
                 <Alert 
                     className="text-center m-3" 
-                    variant={this.state.connected ? "success" : "dangerous"}
+                    variant={this.state.connected ? "success" : "danger"}
                 >
                     {this.state.connected ? "Connected!" : "Disconnected!"}
                 </Alert>
