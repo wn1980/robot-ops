@@ -7,12 +7,46 @@ class Connect extends Component {
         connected: true,
     };
 
-    url = 'ws://' + document.location.hostname + ':9090'
+    url = 'ws://' + document.location.hostname + ':9090';
 
     init_connection(){
+        var ROS = window._ROS;
+        this.setState({connected: ROS.connectStatus});
+
+        ROS.on('connection', function () {
+            document.getElementById('status').innerHTML = 'Network: connected';
+            document.getElementById('signal').className = 'fas fa-signal';
+            this.setState({connected: true});
+        });
+
+        ROS.on('error', function (_error) {
+            document.getElementById('status').innerHTML = 'Network: error';
+            document.getElementById('signal').className = 'fas fa-exclamation-circle';
+            document.getElementById('robotCamera').src = this.defaultImage;
+            this.setState({connected: false});
+        });
+
+        ROS.on('close', function () {
+            document.getElementById('status').innerHTML = 'Network: closed';
+            document.getElementById('signal').className = 'fas fa-ban';
+            document.getElementById('robotCamera').src = this.defaultImage;
+            this.setState({connected: false});
+
+            //try to reconnect
+            setTimeout(() => {
+                try{
+                    ROS.connect(this.url);
+                } catch (error){
+                    console.log("Connection to ROS failed!");
+                }
+            }, 5000);
+        });
+
+
+        /*
         //var ROS = new window.ROSLIB.Ros();
 
-        var ROS = window.RosSingleton.getInstance();
+        //var ROS = window.RosSingleton.getInstance();
  
         ROS.on("connection", () => {
             console.log("Connection established!");
@@ -40,7 +74,7 @@ class Connect extends Component {
                 }
             }, 5000);
         });
-
+        */
     }
 
     componentDidMount(){
@@ -50,12 +84,39 @@ class Connect extends Component {
     render(){
         return(
             <div>
+                {/** 
                 <Alert 
                     className="text-center m-3" 
                     variant={this.state.connected ? "success" : "danger"}
                 >
                     {this.state.connected ? "Connected!" : "Disconnected!"}
                 </Alert>
+                */}
+
+                <div className="row">
+                    <div className="col text-center"></div>
+
+                    <div className="col text-center">
+                        <p>
+                            <i id="battery" className="fas fa-ban"></i>
+                        </p>
+                    </div>
+
+                    <div className="col text-center">
+                        <p>
+                            <small id="status"></small>
+                        </p>
+                    </div>
+
+                    <div className="col text-center">
+                        <p>
+                            <i id="signal" className="fas fa-ban"></i>
+                        </p>
+                    </div>
+
+                    <div className="col text-center"></div>
+                </div>
+
             </div>
         );
     }

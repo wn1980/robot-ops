@@ -23,7 +23,7 @@ class Map extends Component {
     
         // Setup the nav client.
         var nav = window.NAV2D.OccupancyGridClientNav({
-          ros : window.RosSingleton.getInstance(),
+          ros : window._ROS,
           rootObject : viewer.scene,
           viewer : viewer,
           serverName : '/move_base',

@@ -38,94 +38,31 @@
     <script src="js/nav2djs/navigator/ImageMapClientNav.js"></script>
 
     <script src="js/keyboardteleop.min.js"></script>
-    <script src="js/RosSingleton.js"></script>
+    <script src="js/ROSSingleton.js"></script>
 
     <link rel="stylesheet" href="css/desktop.css">
-    <link rel="stylesheet" href="@fortawesome/fontawesome-free/css/all.min.css">
 
     <script>
       /*
-      class Singleton {
-        ROS;
-        a;
-        constructor() {
-          // Connecting to ROS.
-          this.ROS = new ROSLIB.Ros({
-            url : 'ws://' + document.location.hostname + ':9090'
-          });
+      var instanceOne = new ROSSingleton();
+      var instanceTwo = new ROSSingleton();
 
-          this.a = "hello";
-
-          if (!Singleton._instance) {
-            Singleton._instance = this;
-          }
-          return Singleton._instance;
-        }
-
-        static getInstance() {
-          return this._instance;
-        }
-      }
+      console.log("Same instance? " + (instanceOne === instanceTwo)) // Logs "true"
       */
 
-      /*
-      var RosSingleton = (function () {
-        var instance;
-
-        function createInstance() {
-          var object = new ROSLIB.Ros();
-          return object;
-        }
-
-        return {
-          getInstance: function () {
-              if (!instance) {
-                  instance = createInstance();
-              }
-
-              return instance;
-          }
-        };
-      })();
-      */
-
-      var ROS_singleton = RosSingleton.getInstance();
-      var test = RosSingleton.getInstance();
-      console.log(ROS_singleton)
-      console.log(test)
-
-      //ROS_singleton.connect('ws://' + document.location.hostname + ':9090');
-
-      console.log("Same instance? " + (ROS_singleton === test));
-      console.log("connectStatus: " + connectStatus);
-
-
-      /**
-       * Setup all GUI elements when the page is loaded. 
-       */
-      function keyop() {
-        // Connecting to ROS.
-        /*
-        var ROS = new ROSLIB.Ros({
-          url : 'ws://' + document.location.hostname + ':9090'
-        });
-        */
-    
+      function init() {
         // Initialize the teleop.
-        
         var teleop = new KEYBOARDTELEOP.Teleop({
-          ros : _ROS,
+          ros : new ROSSingleton().ros,
           topic : '/default_velocity_smoother/raw_cmd_vel'
         });   
 
-        console.log("connectStatus: " + connectStatus);
-        
       }
 
     </script>
     
   </head>
-  <body onload="keyop()">
+  <body class="d-flex flex-column h-100" onload="init()">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--
