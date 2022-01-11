@@ -20,32 +20,32 @@ var RosSingleton = (function () {
     };
   })();
 
-  var connectStatus = false;
+var connectStatus = false;
 
-  var ROS = window.RosSingleton.getInstance();
+var _ROS = window.RosSingleton.getInstance();
  
-  ROS.on("connection", () => {
-      console.log("Connection established!");
-      console.log(ROS);
-      connectStatus = true;
-  });
+_ROS.on("connection", () => {
+    console.log("Connection established!");
+    console.log(_ROS);
+    connectStatus = true;
+});
 
-  ROS.on("error", (_error) => {
-      console.log("Connection error!");
-      console.log(_error);
-      connectStatus = false;
-  });
+_ROS.on("error", (_error) => {
+    console.log("Connection error!");
+    console.log(_error);
+    connectStatus = false;
+});
 
-  ROS.on("close", () => {
-      console.log("Connection closed!");
-      connectStatus = false;
+_ROS.on("close", () => {
+    console.log("Connection closed!");
+    connectStatus = false;
 
-      //try to reconnect
-      setTimeout(() => {
-          try{
-              ROS.connect('ws://' + document.location.hostname + ':9090');
-          } catch (error){
-              console.log("Connection to ROS failed!");
-          }
-      }, 5000);
-  });
+    //try to reconnect
+    setTimeout(() => {
+        try{
+            _ROS.connect('ws://' + document.location.hostname + ':9090');
+        } catch (error){
+            console.log("Connection to ROS failed!");
+        }
+    }, 5000);
+});

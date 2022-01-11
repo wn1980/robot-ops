@@ -99,7 +99,7 @@
       console.log("Same instance? " + (ROS_singleton === test));
       console.log("connectStatus: " + connectStatus);
 
-      
+
       /**
        * Setup all GUI elements when the page is loaded. 
        */
@@ -114,7 +114,7 @@
         // Initialize the teleop.
         
         var teleop = new KEYBOARDTELEOP.Teleop({
-          ros : ROS,
+          ros : _ROS,
           topic : '/default_velocity_smoother/raw_cmd_vel'
         });   
 

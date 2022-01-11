@@ -4,7 +4,7 @@ import { Alert } from "react-bootstrap";
 class Connect extends Component {
 
     state = {
-        connected: false,
+        connected: true,
     };
 
     url = 'ws://' + document.location.hostname + ':9090'
