@@ -10,22 +10,28 @@ class Connect extends Component {
     url = 'ws://' + document.location.hostname + ':9090'
 
     init_connection(){
-        var ros = new window.ROSLIB.Ros();
-        console.log(ros);
-
-        ros.on("connection", () => {
+        var ROS = new window.ROSLIB.Ros();
+ 
+        ROS.on("connection", () => {
             console.log("Connection established!");
+            console.log(ROS);
             this.setState({connected: true});
         });
 
-        ros.on("close", () => {
+        ROS.on("error", (_error) => {
+            console.log("Connection error!");
+            console.log(_error);
+            this.setState({connected: false});
+        });
+
+        ROS.on("close", () => {
             console.log("Connection closed!");
             this.setState({connected: false});
 
             //try to reconnect
             setTimeout(() => {
                 try{
-                    ros.connect(this.url);
+                    ROS.connect(this.url);
                     this.setState({connected: true});
                 } catch (error){
                     console.log("Connection to ROS failed!");

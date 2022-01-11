@@ -43,20 +43,78 @@
     <link rel="stylesheet" href="@fortawesome/fontawesome-free/css/all.min.css">
 
     <script>
+      /*
+      class Singleton {
+        ROS;
+        a;
+        constructor() {
+          // Connecting to ROS.
+          this.ROS = new ROSLIB.Ros({
+            url : 'ws://' + document.location.hostname + ':9090'
+          });
+
+          this.a = "hello";
+
+          if (!Singleton._instance) {
+            Singleton._instance = this;
+          }
+          return Singleton._instance;
+        }
+
+        static getInstance() {
+          return this._instance;
+        }
+      }
+      */
+
+      var RosSingleton = (function () {
+        var instance;
+
+        function createInstance() {
+          /*
+          var object = new ROSLIB.Ros({
+              url : 'ws://' + document.location.hostname + ':9090'
+            });
+          */
+          var object = new ROSLIB.Ros();
+          return object;
+        }
+
+        return {
+          getInstance: function () {
+              if (!instance) {
+                  instance = createInstance();
+              }
+
+              return instance;
+          }
+        };
+      })();
+
+      var ROS_singleton = RosSingleton.getInstance();
+      var test = RosSingleton.getInstance();
+      console.log(ROS_singleton)
+      console.log(test)
+
+      ROS_singleton.connect('ws://' + document.location.hostname + ':9090');
+
+      console.log("Same instance? " + (ROS_singleton === test));
       /**
        * Setup all GUI elements when the page is loaded. 
        */
       function keyop() {
         // Connecting to ROS.
-        var ros = new ROSLIB.Ros({
+        var ROS = new ROSLIB.Ros({
           url : 'ws://' + document.location.hostname + ':9090'
         });
     
         // Initialize the teleop.
+        
         var teleop = new KEYBOARDTELEOP.Teleop({
-          ros : ros,
+          ros : ROS_singleton,
           topic : '/default_velocity_smoother/raw_cmd_vel'
         });   
+        
       }
 
     </script>

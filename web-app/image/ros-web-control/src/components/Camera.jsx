@@ -8,8 +8,8 @@ class Camera extends Component {
     init_connection(){
         // Connect to ROS.
         var ROS = new window.ROSLIB.Ros({
-            url: 'ws://rk3399.local:9090',
-            //url: 'ws://' + document.location.hostname + ':9090'
+            //url: 'ws://rk3399.local:9090',
+            url: 'ws://' + document.location.hostname + ':9090'
         });
 
         ROS.on('connection', function () {
