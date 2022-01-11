@@ -21,12 +21,12 @@ RUN sed -i -e 's/http:\/\/archive/mirror:\/\/mirrors/' -e 's/http:\/\/security/m
 
 RUN apt-get update --fix-missing && apt-get upgrade -y
 RUN	apt-get install -y \ 
-#	ros-${ROS_DISTRO}-twist-mux \
-#	ros-${ROS_DISTRO}-twist-mux-msgs \
+	ros-${ROS_DISTRO}-twist-mux \
+	ros-${ROS_DISTRO}-twist-mux-msgs \
 	build-essential \
-#	&& apt-get autoremove -y \
-#	&& apt-get clean \
-#	&& rm -rf /var/lib/apt/lists/* \
+	&& apt-get autoremove -y \
+	&& apt-get clean \
+	&& rm -rf /var/lib/apt/lists/* \
 	&& echo "DONE"
 
 RUN mkdir -p /catkin_ws/src && \

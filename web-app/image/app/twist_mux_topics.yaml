@@ -15,7 +15,7 @@ topics:
   name    : joystick
   topic   : /twist_mux/joy_vel
   timeout : 0.5
-  priority: 100
+  priority: 80
 -
   name    : keyboard
   topic   : /twist_mux/key_vel
@@ -26,3 +26,8 @@ topics:
   topic   : /twist_mux/tab_vel
   timeout : 0.5
   priority: 100
+
+  name    : webapp
+  topic   : /default_velocity_smoother/raw_cmd_vel
+  timeout : 0.5
+  priority: 70

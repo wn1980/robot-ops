@@ -74,7 +74,7 @@ export default function Header() {
     var code_server2 = base_url + ":8559";
 
     var webviz = base_url + ":1000";
-    var web_vdo_server = base_url + ":8080";
+    var video_server = base_url + ":8080";
 
     var portainer = base_url + ":9000";
 
@@ -112,7 +112,7 @@ export default function Header() {
                                 <li><hr className="dropdown-divider"/></li>
 
                                 <li><a className="dropdown-item" href={webviz} target="_blank" rel="noreferrer" >webviz</a></li>
-                                <li><a className="dropdown-item" href={web_vdo_server} target="_blank" rel="noreferrer" >web-vdo-server</a></li>
+                                <li><a className="dropdown-item" href={video_server} target="_blank" rel="noreferrer" >video-server</a></li>
 
                                 <li><hr className="dropdown-divider"/></li>
 
