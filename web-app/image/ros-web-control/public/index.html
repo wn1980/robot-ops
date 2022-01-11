@@ -38,6 +38,7 @@
     <script src="js/nav2djs/navigator/ImageMapClientNav.js"></script>
 
     <script src="js/keyboardteleop.min.js"></script>
+    <script src="js/RosSingleton.js"></script>
 
     <link rel="stylesheet" href="css/desktop.css">
     <link rel="stylesheet" href="@fortawesome/fontawesome-free/css/all.min.css">
@@ -67,15 +68,11 @@
       }
       */
 
+      /*
       var RosSingleton = (function () {
         var instance;
 
         function createInstance() {
-          /*
-          var object = new ROSLIB.Ros({
-              url : 'ws://' + document.location.hostname + ':9090'
-            });
-          */
           var object = new ROSLIB.Ros();
           return object;
         }
@@ -90,30 +87,38 @@
           }
         };
       })();
+      */
 
       var ROS_singleton = RosSingleton.getInstance();
       var test = RosSingleton.getInstance();
       console.log(ROS_singleton)
       console.log(test)
 
-      ROS_singleton.connect('ws://' + document.location.hostname + ':9090');
+      //ROS_singleton.connect('ws://' + document.location.hostname + ':9090');
 
       console.log("Same instance? " + (ROS_singleton === test));
+      console.log("connectStatus: " + connectStatus);
+
+      
       /**
        * Setup all GUI elements when the page is loaded. 
        */
       function keyop() {
         // Connecting to ROS.
+        /*
         var ROS = new ROSLIB.Ros({
           url : 'ws://' + document.location.hostname + ':9090'
         });
+        */
     
         // Initialize the teleop.
         
         var teleop = new KEYBOARDTELEOP.Teleop({
-          ros : ROS_singleton,
+          ros : ROS,
           topic : '/default_velocity_smoother/raw_cmd_vel'
         });   
+
+        console.log("connectStatus: " + connectStatus);
         
       }
 

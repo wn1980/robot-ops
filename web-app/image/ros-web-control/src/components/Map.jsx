@@ -7,10 +7,12 @@ class Map extends Component {
 
     init() {
         // Connect to ROS.
+        /*
         var ros = new window.ROSLIB.Ros({
           //url: 'ws://rk3399.local:9090',
           url: 'ws://' + document.location.hostname + ':9090'
         });
+        */
     
         // Create the main viewer.
         var viewer = new window.ROS2D.Viewer({
@@ -21,7 +23,7 @@ class Map extends Component {
     
         // Setup the nav client.
         var nav = window.NAV2D.OccupancyGridClientNav({
-          ros : ros,
+          ros : window.RosSingleton.getInstance(),
           rootObject : viewer.scene,
           viewer : viewer,
           serverName : '/move_base',

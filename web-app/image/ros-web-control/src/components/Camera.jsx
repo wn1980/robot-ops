@@ -7,10 +7,14 @@ class Camera extends Component {
 
     init_connection(){
         // Connect to ROS.
+        /*
         var ROS = new window.ROSLIB.Ros({
             //url: 'ws://rk3399.local:9090',
             url: 'ws://' + document.location.hostname + ':9090'
         });
+        */
+        
+       var ROS = window.RosSingleton.getInstance();
 
         ROS.on('connection', function () {
             document.getElementById('status').innerHTML = 'Network: connected';

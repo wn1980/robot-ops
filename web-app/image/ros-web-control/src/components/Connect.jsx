@@ -10,7 +10,9 @@ class Connect extends Component {
     url = 'ws://' + document.location.hostname + ':9090'
 
     init_connection(){
-        var ROS = new window.ROSLIB.Ros();
+        //var ROS = new window.ROSLIB.Ros();
+
+        var ROS = window.RosSingleton.getInstance();
  
         ROS.on("connection", () => {
             console.log("Connection established!");
