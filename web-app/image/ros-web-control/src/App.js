@@ -29,6 +29,9 @@ export default function App() {
       </div>
       </main>
 
+      <div id="speed-label" class="text-center"></div>
+      <div id="speed-slider" class="text-center"></div>
+      
       <Footer/>
 
     </div>
