@@ -96,6 +96,9 @@ RUN apt-get install -y \
     ros-${ROS_DISTRO}-diagnostics \
     ros-${ROS_DISTRO}-plotjuggler-ros \
     ros-${ROS_DISTRO}-imu-tools \
+    ros-${ROS_DISTRO}-robot-state-publisher \
+    ros-${ROS_DISTRO}-joint-state-publisher \
+    ros-${ROS_DISTRO}-hector-trajectory-server \
     python3-rosdep \
     && apt-get autoremove -y \
     && apt-get clean \
