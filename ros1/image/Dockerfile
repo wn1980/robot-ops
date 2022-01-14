@@ -223,7 +223,9 @@ RUN bash /turtlebot2.sh && \
 	#rm -rf /catkin_ws && \
     echo "DONE"
 
-RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc && \
+# https://superuser.com/questions/555310/bash-save-history-without-exit
+RUN echo "export PROMPT_COMMAND=\'history -a\'" >> ~/.bashrc && \ 
+    echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc && \
     echo "source $HOME/catkin_ws/devel/setup.bash" >> ~/.bashrc && \
     echo "export TURTLEBOT_BASE=kobuki" >> ~/.bashrc && \
     echo "export TURTLEBOT_3D_SENSOR=asus_xtion_pro" >> ~/.bashrc && \
