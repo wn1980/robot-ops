@@ -10,6 +10,7 @@ class Connect extends Component {
     url = 'ws://' + document.location.hostname + ':9090';
 
     init_connection(){
+        //var _ROS = new window.ROSSingleton();
         var ROS = window._ROS;
         this.setState({connected: ROS.connectStatus});
 

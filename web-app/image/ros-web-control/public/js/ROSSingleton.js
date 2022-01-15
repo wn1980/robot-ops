@@ -62,7 +62,7 @@ class ROSSingleton {
       // connect to rosbridge server
       //this.connectStatus = false;
 
-      this.ros = new ROSLIB.Ros({
+      this.ros = new window.ROSLIB.Ros({
           url : url
         });
 
