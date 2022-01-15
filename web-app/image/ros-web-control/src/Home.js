@@ -18,15 +18,20 @@ import Connect from "./components/Connect";
 import Camera from "./components/Camera";
 //import KeyboardTeleop from "./components/KeyboardTeleop";
 
+import "./App.css";
+
 export default function Home(){
     return(
         <div>
             <Connect/>
-            <Camera/>
-            
+               
             {/** <KeyboardTeleop/> */}
             
-            <Map/>
+            
+            <div id="outer_camera_map">
+                <div id="container_camera"><Camera/></div>
+                <div id="container_map"><Map/></div>
+            </div>
         </div>
     );
 

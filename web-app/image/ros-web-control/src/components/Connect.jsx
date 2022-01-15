@@ -43,6 +43,27 @@ class Connect extends Component {
             }, 5000);
         });
 
+        // Subscribe to /event to receive battery status
+        var battery = new window.ROSLIB.Topic({
+            ros: ROS,
+            name: '/diagnostics',
+            messageType: 'diagnostic_msgs/DiagnosticArray'
+        });
+
+        // Receive battery status
+        battery.subscribe(function (msg) {
+            if ((typeof (msg.status[0]) !== 'undefined') && (msg.status[0].hardware_id === 'Kobuki')) {
+                var batteryLevel = msg.status[0].values[1].value;
+                if (batteryLevel >= 60.0) {
+                    document.getElementById('battery').className = 'fas fa-battery-full';
+                } else if (batteryLevel <= 25.0) {
+                    document.getElementById("battery").className = 'fas fa-battery-empty';
+                } else {
+                    document.getElementById('battery').className = 'fas fa-battery-half';
+                }
+            }
+        });
+
 
         /*
         //var ROS = new window.ROSLIB.Ros();

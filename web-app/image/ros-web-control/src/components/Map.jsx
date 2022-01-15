@@ -16,9 +16,9 @@ class Map extends Component {
     
         // Create the main viewer.
         var viewer = new window.ROS2D.Viewer({
-          divID : 'nav',
-          width : 350,
-          height : 400
+          divID: 'nav',
+          width: 200,
+          height: 100,
         });
     
         // Setup the nav client.
