@@ -32,6 +32,11 @@ export default function Home(){
                 <div id="container_camera"><Camera/></div>
                 <div id="container_map"><Map/></div>
             </div>
+
+            <div>
+                <div id="speed-label" className="text-center"></div>
+                <div id="speed-slider" className="text-center"></div>
+            </div>
         </div>
     );
 

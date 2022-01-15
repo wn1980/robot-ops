@@ -39,6 +39,7 @@
 
 #outer_camera_map{
   position: relative;
+  height: 600px;
 }
 
 #container_camera{ 
