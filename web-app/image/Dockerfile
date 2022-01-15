@@ -4,7 +4,10 @@ COPY ./ros-web-control /app
 
 WORKDIR /app
 
-RUN npm install && npm run build
+RUN npm cache clean --force && \
+	rm -rf node_modules && \
+	npm install && \
+	npm run build
 
 # main image
 FROM ros:noetic-ros-core-focal
