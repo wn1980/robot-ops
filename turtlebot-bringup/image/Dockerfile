@@ -13,6 +13,7 @@ RUN sed -i -e 's/http:\/\/archive/mirror:\/\/mirrors/' -e 's/http:\/\/security/m
 RUN apt-get update --fix-missing && apt-get upgrade -y 
 RUN apt-get install -y \ 
 	ros-$ROS_DISTRO-linux-peripheral-interfaces \
+	ros-$ROS_DISTRO-diagnostics \
 	ros-$ROS_DISTRO-kobuki-core \
 	ros-$ROS_DISTRO-kobuki-msgs \
 	ros-$ROS_DISTRO-kobuki-node \
