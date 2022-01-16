@@ -4,7 +4,8 @@ COPY ./ros-web-control /app
 
 WORKDIR /app
 
-RUN npm cache clean --force && \
+RUN npm install -g npm@latest && \
+	npm cache clean --force && \
 	rm -rf node_modules && \
 	npm install && \
 	npm run build
