@@ -58,13 +58,33 @@
   </node>
 
   <!-- Default velocity smoother -->
-  <node pkg="nodelet" type="nodelet" name="default_velocity_smoother" args="load yocs_velocity_smoother/VelocitySmootherNodelet mobile_base_nodelet_manager">
-    <rosparam file="/app/param/smoother.yaml" command="load"/>
-    <remap from="default_velocity_smoother/smooth_cmd_vel" to="cmd_vel_mux/input/default"/>
+  <node pkg="nodelet" type="nodelet" name="velocity_smoother_default" args="load yocs_velocity_smoother/VelocitySmootherNodelet mobile_base_nodelet_manager">
+    <rosparam file="$(find turtlebot_laser)/param/smoother.yaml" command="load"/>
+    <remap from="velocity_smoother_default/smooth_cmd_vel" to="cmd_vel_mux/input/default"/>
 
     <!-- Robot velocity feedbacks; use the one configured as base default -->
-    <remap from="default_velocity_smoother/odometry" to="odom"/>
-    <remap from="default_velocity_smoother/robot_cmd_vel" to="mobile_base/commands/velocity"/>
+    <remap from="velocity_smoother_default/odometry" to="odom"/>
+    <remap from="velocity_smoother_default/robot_cmd_vel" to="mobile_base/commands/velocity"/>
+  </node>
+
+  <!-- Teleop velocity smoother -->
+  <node pkg="nodelet" type="nodelet" name="velocity_smoother_teleop" args="load yocs_velocity_smoother/VelocitySmootherNodelet mobile_base_nodelet_manager">
+    <rosparam file="$(find turtlebot_laser)/param/smoother.yaml" command="load"/>
+    <remap from="velocity_smoother_teleop/smooth_cmd_vel" to="cmd_vel_mux/input/teleop"/>
+
+    <!-- Robot velocity feedbacks; use the one configured as base default -->
+    <remap from="velocity_smoother_teleop/odometry" to="odom"/>
+    <remap from="velocity_smoother_teleop/robot_cmd_vel" to="mobile_base/commands/velocity"/>
+  </node>
+
+  <!-- Navigation velocity smoother -->
+  <node pkg="nodelet" type="nodelet" name="velocity_smoother_navi" args="load yocs_velocity_smoother/VelocitySmootherNodelet mobile_base_nodelet_manager">
+    <rosparam file="$(find turtlebot_laser)/param/smoother.yaml" command="load"/>
+    <remap from="velocity_smoother_navi/smooth_cmd_vel" to="cmd_vel_mux/input/navi"/>
+
+    <!-- Robot velocity feedbacks; use the one configured as base default -->
+    <remap from="velocity_smoother_navi/odometry" to="odom"/>
+    <remap from="velocity_smoother_navi/robot_cmd_vel" to="mobile_base/commands/velocity"/>
   </node>
 
   <!-- path -->

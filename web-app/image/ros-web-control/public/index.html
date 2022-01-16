@@ -58,7 +58,7 @@
         var teleop = new KEYBOARDTELEOP.Teleop({
           ros : new ROSSingleton().ros,
           throttle: 1.0,
-          topic : '/default_velocity_smoother/raw_cmd_vel'
+          topic : 'velocity_smoother_default/raw_cmd_vel'
         });   
 
         // Create a UI slider using JQuery UI.
