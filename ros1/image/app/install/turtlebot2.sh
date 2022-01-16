@@ -37,7 +37,7 @@ if [ ! -d $TURTLEBOT_WS/src/turtlebot ]; then
 
   git clone https://github.com/ros-drivers/linux_peripheral_interfaces.git
 
-  git clone https://github.com/YDLIDAR/ydlidar_ros.git
+  git clone https://github.com/YDLIDAR/ydlidar_ros_driver.git
   git clone https://github.com/wn1980/turtlebot_laser.git
 
 fi
@@ -62,6 +62,15 @@ sudo apt-get install  -y \
   && apt-get autoremove -y \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
+
+# install ydlidar_sdk first
+cd ~
+git clone https://github.com/YDLIDAR/YDLidar-SDK.git 
+mkdir -p YDLidar-SDK/build
+cd YDLidar-SDK/build
+cmake ..
+sudo make install
+rm -rf ~/YDLidar-SDK
 
 # make and install
 cd $TURTLEBOT_WS

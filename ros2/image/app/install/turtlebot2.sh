@@ -35,9 +35,8 @@ sudo apt-get update && sudo apt-get upgrade -y
 # install ydlidar_sdk first
 cd ~
 git clone https://github.com/YDLIDAR/YDLidar-SDK.git 
-cd YDLidar-SDK
-mkdir -p build
-cd build
+mkdir -p YDLidar-SDK/build
+cd YDLidar-SDK/build
 cmake ..
 sudo make install
 rm -rf ~/YDLidar-SDK
