@@ -40,9 +40,9 @@ RUN rosdep init && rosdep update
 
 RUN mkdir -p /catkin_ws/src && \
 	cd /catkin_ws/src && \
-	catkin_create_pkg bringup std_msgs rospy
+	catkin_create_pkg docking std_msgs rospy
 
-COPY ./scripts /catkin_ws/src/bringup/scripts
+COPY ./scripts /catkin_ws/src/docking/scripts
 
 RUN cd /catkin_ws && \
 	source /opt/ros/${ROS_DISTRO}/setup.bash && \

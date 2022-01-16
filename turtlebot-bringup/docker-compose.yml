@@ -8,7 +8,7 @@ networks:
 services:
 
   turtlebot-bringup:
-    build: ./image
+    #build: ./image
     image: wn1980/turtlebot-bringup-ros${TAG}
     container_name: ros_turtlebot_bringup
     init: true
