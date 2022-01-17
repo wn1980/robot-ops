@@ -28,6 +28,6 @@ topics:
   priority: 100
 
   name    : webapp
-  topic   : /default_velocity_smoother/raw_cmd_vel
+  topic   : /velocity_smoother_default/raw_cmd_vel
   timeout : 0.5
   priority: 70
