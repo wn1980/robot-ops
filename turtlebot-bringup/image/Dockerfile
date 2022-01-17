@@ -29,7 +29,7 @@ RUN apt-get install -y \
 	ros-${ROS_DISTRO}-robot-state-publisher \
 	ros-${ROS_DISTRO}-xacro \
 	ros-${ROS_DISTRO}-nodelet \
-	ros-${ROS_DISTRO}-joy \
+	ros-${ROS_DISTRO}-urdf \
 	ros-${ROS_DISTRO}-angles \
 	ros-${ROS_DISTRO}-dynamic-reconfigure \
 	ros-${ROS_DISTRO}-kdl-conversions \
@@ -52,17 +52,19 @@ RUN mkdir -p /catkin_ws/src && \
 COPY ./scripts /catkin_ws/src/docking/scripts
 
 RUN cd /catkin_ws/src && \
-	git clone https://github.com/turtlebot/turtlebot.git
-
-RUN cd /catkin_ws/src && \
 	git clone https://github.com/ros-drivers/linux_peripheral_interfaces.git
 
 RUN cd /catkin_ws/src && \
+	git clone https://github.com/turtlebot/turtlebot.git && \
+	mv turtlebot/turtlebot_bringup turtlebot/turtlebot_description ./ && \
+	rm -rf turtlebot
+
+RUN cd /catkin_ws/src && \
 	git clone --single-branch --branch melodic https://github.com/yujinrobot/kobuki.git && \
-	mv kobuki/kobuki_description kobuki/kobuki_node \
+  	mv kobuki/kobuki_description kobuki/kobuki_node \
     kobuki/kobuki_keyop kobuki/kobuki_safety_controller \
     kobuki/kobuki_bumper2pc kobuki/kobuki_auto_docking ./ && \
-	rm -rf kobuki
+  	rm -rf kobuki
 
 RUN cd /catkin_ws/src && \
 	git clone https://github.com/yujinrobot/yujin_ocs.git && \
