@@ -73,7 +73,7 @@ RUN cd /catkin_ws/src && \
 
 RUN cd /catkin_ws && \
 	source /opt/ros/${ROS_DISTRO}/setup.bash && \
-	catkin_make install
+	catkin_make
 
 COPY ./app /app
 
@@ -83,4 +83,4 @@ RUN apt-get purge -y \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
-CMD source /catkin_ws/install/setup.bash && roslaunch --wait /app/bringup.launch
+CMD source /catkin_ws/devel/setup.bash && roslaunch --wait /app/bringup.launch
