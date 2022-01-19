@@ -157,6 +157,7 @@ RUN mkdir -p $HOME/dev_ws/src && \
 
 # https://superuser.com/questions/555310/bash-save-history-without-exit
 RUN echo "export PROMPT_COMMAND='history -a'" >> ~/.bashrc && \ 
+    echo "source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash" >> ~/.bashrc && \
     echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc && \
     echo "source $HOME/dev_ws/install/setup.bash" >> ~/.bashrc && \
     echo "export TURTLEBOT_BASE=kobuki" >> ~/.bashrc && \
