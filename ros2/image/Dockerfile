@@ -68,6 +68,7 @@ RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y \
     ros-${ROS_DISTRO}-desktop \
     python3-rosdep \
+    python3-colcon-common-extensions \
     && apt-get autoremove -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -76,6 +77,7 @@ RUN apt-get install -y \
 RUN curl https://bootstrap.pypa.io//get-pip.py | python3 - && \
     #curl https://bootstrap.pypa.io/pip/2.7/get-pip.py | python - && \
     pip install -U --no-cache-dir \
+    	argcomplete \
         libconf \
         supervisor \
         supervisor_twiddler
@@ -141,10 +143,6 @@ RUN rosdep fix-permissions && rosdep update
 
 # enable bash completion
 RUN echo "source /usr/share/bash-completion/bash_completion" >> ~/.bashrc && \
-    #git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it && \
-    #~/.bash_it/install.sh --silent && \
-    #rm ~/.bashrc.bak && \
-    #bash -i -c "bash-it enable completion git" && \
     echo "source ~/.bashrc" >> ~/.bash_profile 
 
 # compile turtlebot2 packages from sources
