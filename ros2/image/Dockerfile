@@ -1,4 +1,5 @@
-FROM ros:foxy-ros-base-focal
+#FROM ros:foxy-ros-base-focal
+FROM ros:galactic-ros-base-focal
 
 LABEL maintainer="Waipot Ngamsaad <waipotn@hotmail.com>"
 
@@ -64,7 +65,7 @@ RUN apt-get install -y \
 RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list' && \
     curl -L http://packages.osrfoundation.org/gazebo.key | apt-key add -
 
-RUN apt-get update && apt-get upgrade -y
+RUN apt-get update --fix-missing && apt-get upgrade --fix-missing -y
 RUN apt-get install -y \
     ros-${ROS_DISTRO}-desktop \
     python3-rosdep \
@@ -145,12 +146,31 @@ RUN rosdep fix-permissions && rosdep update
 RUN echo "source /usr/share/bash-completion/bash_completion" >> ~/.bashrc && \
     echo "source ~/.bashrc" >> ~/.bash_profile 
 
+# install ydlidar_sdk first
+RUN cd ~ && \
+    git clone https://github.com/YDLIDAR/YDLidar-SDK.git && \
+    mkdir -p YDLidar-SDK/build && \
+    cd YDLidar-SDK/build && \
+    cmake .. && \
+    sudo make install && \
+    rm -rf ~/YDLidar-SDK && \
+    echo "DONE"
+
 # compile turtlebot2 packages from sources
-COPY ./app/install/turtlebot2.sh /
+#COPY ./app/install/turtlebot2.sh /
+
+RUN sudo apt-get update && sudo apt-get upgrade -y
 
 RUN mkdir -p $HOME/dev_ws/src && \
-    bash /turtlebot2.sh && \
-    sudo rm -f /turtlebot2.sh && \
+    #bash /turtlebot2.sh && \
+    #sudo rm -f /turtlebot2.sh && \
+    cd $HOME/dev_ws/src && \
+    git clone https://github.com/YDLIDAR/ydlidar_ros2_driver.git && \
+    git clone https://github.com/wn1980/turtlebot2_ros2.git && \
+    cd $HOME/dev_ws && \
+    sudo rosdep install -i --from-path src --rosdistro galactic -y && \
+    source /opt/ros/${ROS_DISTRO}/setup.bash && \
+    colcon build --symlink-install && \
     echo "DONE"
 
 # https://superuser.com/questions/555310/bash-save-history-without-exit

@@ -48,6 +48,8 @@ RUN cd /ros2_ws/src && \
 	mv kobuki_ros/kobuki_auto_docking ./ && \
 	rm -rf kobuki_ros
 
+COPY ./turtlebot2_ros2_bringup /ros2_ws/src/turtlebot2_ros2_bringup
+
 RUN apt-get update && apt-get upgrade -y 
 RUN apt-get install -y \ 
 	build-essential \
@@ -55,8 +57,6 @@ RUN apt-get install -y \
 	python3-colcon-common-extensions
 
 RUN rosdep init && rosdep update
-
-COPY ./turtlebot2_ros2_bringup /ros2_ws/src/turtlebot2_ros2_bringup
 
 RUN cd /ros2_ws && \
 	source /opt/ros/${ROS_DISTRO}/setup.bash && \
