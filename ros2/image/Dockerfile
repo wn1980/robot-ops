@@ -165,6 +165,7 @@ RUN mkdir -p $HOME/dev_ws/src && \
     #bash /turtlebot2.sh && \
     #sudo rm -f /turtlebot2.sh && \
     cd $HOME/dev_ws/src && \
+    git clone https://github.com/kobuki-base/kobuki_ros_interfaces.git && \
     git clone https://github.com/YDLIDAR/ydlidar_ros2_driver.git && \
     git clone https://github.com/wn1980/turtlebot2_ros2.git && \
     cd $HOME/dev_ws && \
