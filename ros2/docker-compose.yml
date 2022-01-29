@@ -12,7 +12,7 @@ volumes:
 services:
 
   ros2:
-    build: ./image
+    #build: ./image
     #image: wn1980/ros2-foxy${TAG}
     #container_name: ros2_foxy
     image: wn1980/ros2-galactic${TAG}
@@ -50,7 +50,7 @@ services:
   #    - "11311:11311"
 
   ros1_to_ros2:
-    image: ros:foxy-ros1-bridge-focal
+    image: ros:galactic-ros1-bridge-focal
     container_name: ros1_to_ros2
     init: true
     restart: always
