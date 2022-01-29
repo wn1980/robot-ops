@@ -48,7 +48,7 @@ RUN cd /ros2_ws/src && \
 	mv kobuki_ros/kobuki_auto_docking ./ && \
 	rm -rf kobuki_ros
 
-COPY ./turtlebot2_ros2_bringup /ros2_ws/src/turtlebot2_ros2_bringup
+#COPY ./turtlebot2_ros2_bringup /ros2_ws/src/turtlebot2_ros2_bringup
 
 RUN apt-get update && apt-get upgrade -y 
 RUN apt-get install -y \ 
@@ -64,6 +64,16 @@ RUN cd /ros2_ws && \
 	colcon build --symlink-install && \
 	echo "DONE"
 
+# add turtlebot2_ros2_bringup package
+COPY ./turtlebot2_ros2_bringup /ros2_ws/src/turtlebot2_ros2_bringup
+
+RUN cd /ros2_ws && \
+	source /opt/ros/${ROS_DISTRO}/setup.bash && \
+	rosdep install -i --from-path src --rosdistro foxy -y && \
+	colcon build --packages-select turtlebot2_ros2_bringup && \
+	echo "DONE"
+
+# Finally, clean
 RUN apt-get purge -y \ 
 	git \
 	&& apt-get autoremove -y \

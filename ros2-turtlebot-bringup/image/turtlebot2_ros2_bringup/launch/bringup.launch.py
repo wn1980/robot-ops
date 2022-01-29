@@ -29,7 +29,7 @@ def generate_launch_description():
         parameters=[params],
         remappings=[
             ('odom', '/odom'),
-            ('commands/velocity', '/cmd_vel')
+            #('commands/velocity', '/cmd_vel')
         ],
     )
 
@@ -100,8 +100,8 @@ def generate_launch_description():
         name='cmd_vel_mux_node',
         namespace='cmd_vel_mux',
         remappings=[
-            #('cmd_vel', '/mobile_base/commands/velocity')
-            ('cmd_vel', '/cmd_vel')
+            ('cmd_vel', '/mobile_base/commands/velocity'),
+            ('input/default', '/cmd_vel')
         ],
         parameters=[params]
     )
