@@ -64,12 +64,16 @@ RUN cd /ros2_ws && \
 	colcon build --symlink-install && \
 	echo "DONE"
 
+RUN apt-get update && apt-get upgrade -y 
+RUN apt-get install -y \ 
+	ros-${ROS_DISTRO}-robot-state-publisher \
+	ros-${ROS_DISTRO}-joint-state-publisher
+
 # add turtlebot2_ros2_bringup package
 COPY ./turtlebot2_ros2_bringup /ros2_ws/src/turtlebot2_ros2_bringup
 
 RUN cd /ros2_ws && \
 	source /opt/ros/${ROS_DISTRO}/setup.bash && \
-	rosdep install -i --from-path src --rosdistro foxy -y && \
 	colcon build --packages-select turtlebot2_ros2_bringup && \
 	echo "DONE"
 

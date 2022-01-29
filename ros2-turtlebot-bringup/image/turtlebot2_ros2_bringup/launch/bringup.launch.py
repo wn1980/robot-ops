@@ -101,7 +101,7 @@ def generate_launch_description():
         namespace='cmd_vel_mux',
         remappings=[
             ('cmd_vel', '/mobile_base/commands/velocity'),
-            ('input/default', '/cmd_vel')
+            #('input/default', '/cmd_vel')
         ],
         parameters=[params]
     )
@@ -118,9 +118,9 @@ def generate_launch_description():
         name='velocity_smoother_default',
         remappings=[
             ('velocity_smoother_default/smoothed', '/cmd_vel_mux/input/default'),
-            #('velocity_smoother_default/feedback/cmd_vel', '/mobile_base/commands/velocity'),
+            ('velocity_smoother_default/feedback/cmd_vel', '/mobile_base/commands/velocity'),
             ('velocity_smoother_default/feedback/odometry', '/odom'),
-            ('velocity_smoother_default/feedback/cmd_vel', '/cmd_vel')
+            ('velocity_smoother_default/input', '/cmd_vel')
         ],
         parameters=[params]
     )
@@ -137,7 +137,7 @@ def generate_launch_description():
                 cmd_vel_mux_node,
                 kobuki_auto_docking_node,
                 kobuki_bumper2pc_node,
-                #velocity_smoother_default_node
+                velocity_smoother_default_node
             ],
             output='both',
     )
