@@ -9,7 +9,7 @@ networks:
 services:
 
   ros2-sensor3d:
-    build: ./image
+    #build: ./image
     image: wn1980/sensor3d-ros2${TAG}
     container_name: ros2_sensor3d
     init: true
