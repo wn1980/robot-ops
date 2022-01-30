@@ -12,17 +12,15 @@ volumes:
 services:
 
   ros2:
-    build: ./image
+    #build: ./image
     #image: wn1980/ros2-foxy${TAG}
     #container_name: ros2_foxy
     image: wn1980/ros2-galactic${TAG}
     container_name: ros2_galactic
     init: true
     restart: unless-stopped
-    network_mode: host
-    environment:
-      - DISPLAY=:1
     privileged: true
+    network_mode: host
     devices:
       - "/dev:/dev"
     volumes:
@@ -35,6 +33,9 @@ services:
       test: ["CMD-SHELL", "test -e /tmp/.X11-unix/X1"]
       interval: "1m"
       retries: 20
+    environment:
+      - ROS_DOMAIN_ID=50
+      - DISPLAY=:1
     #ports:
     #  - "8559:8008"
     #  - "9902:6901"
@@ -59,4 +60,5 @@ services:
     #depends_on: 
     #  - master
     environment:
+      - ROS_DOMAIN_ID=50
       - ROS_MASTER_URI=http://master:11311
