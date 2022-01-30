@@ -54,7 +54,7 @@ services:
     container_name: ros1_to_ros2
     init: true
     restart: always
-    command: ros2 run ros1_bridge dynamic_bridge
+    command: ros2 run ros1_bridge dynamic_bridge --bridge-all-topics
     #depends_on: 
     #  - master
     environment:
