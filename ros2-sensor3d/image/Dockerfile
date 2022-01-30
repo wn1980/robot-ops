@@ -1,5 +1,6 @@
 #FROM ros:galactic-ros-core-focal
 FROM ros:foxy-ros-core-focal
+#FROM ros:dashing-ros-core-bionic
 
 LABEL maintainer="Waipot Ngamsaad <waipotn@hotmail.com>"
 
