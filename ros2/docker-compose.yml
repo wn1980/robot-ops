@@ -1,10 +1,10 @@
 version: '2.3'
 
 # create default network
-networks:
-  default:
-    external:
-      name: ros-network
+#networks:
+#  default:
+#    external:
+#      name: ros-network
 
 volumes:
   workspace:
@@ -12,13 +12,14 @@ volumes:
 services:
 
   ros2:
-    #build: ./image
+    build: ./image
     #image: wn1980/ros2-foxy${TAG}
     #container_name: ros2_foxy
     image: wn1980/ros2-galactic${TAG}
     container_name: ros2_galactic
     init: true
     restart: unless-stopped
+    network_mode: host
     environment:
       - DISPLAY=:1
     privileged: true
@@ -34,9 +35,9 @@ services:
       test: ["CMD-SHELL", "test -e /tmp/.X11-unix/X1"]
       interval: "1m"
       retries: 20
-    ports:
-      - "8559:8008"
-      - "9902:6901"
+    #ports:
+    #  - "8559:8008"
+    #  - "9902:6901"
 
   #master:
   #  image: ros:noetic-ros-core-focal
