@@ -47,4 +47,4 @@ COPY ./app /app
 
 COPY --from=builder /app/build /app/html
 
-CMD source /catkin_ws/devel/setup.bash && roslaunch --wait /app/web_app.launch
+CMD source /catkin_ws/devel/setup.bash && roslaunch /app/web_app.launch

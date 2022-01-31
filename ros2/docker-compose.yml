@@ -40,12 +40,13 @@ services:
     #  - "8559:8008"
     #  - "9902:6901"
 
-  #master:
-  #  image: ros:noetic-ros-core-focal
-  #  container_name: ros1_master
-  #  init: true
-  #  restart: always
-  #  command: roscore
+  master:
+    image: ros:noetic-ros-core-focal
+    container_name: ros1_master
+    init: true
+    restart: always
+    network_mode: host
+    command: roscore
   #  expose:
   #    - 11311
   #  ports:
@@ -56,6 +57,7 @@ services:
     container_name: ros1_to_ros2
     init: true
     restart: always
+    network_mode: host
     command: ros2 run ros1_bridge dynamic_bridge --bridge-all-topics
     #depends_on: 
     #  - master

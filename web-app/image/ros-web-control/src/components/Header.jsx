@@ -70,8 +70,8 @@ export default function Header() {
     var ros_desktop = base_url + ":9901";
     var code_server = base_url + ":8557";
 
-    var ros_desktop2 = base_url + ":9902";
-    var code_server2 = base_url + ":8559";
+    var ros_desktop2 = base_url + ":6901";
+    var code_server2 = base_url + ":8008";
 
     var webviz = base_url + ":1000";
     var video_server = base_url + ":8080";

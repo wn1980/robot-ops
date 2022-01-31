@@ -9,7 +9,7 @@ networks:
 services:
 
   web-app:
-    #build: ./image
+    build: ./image
     image: wn1980/web-app-ros${TAG}
     container_name: ros_web_app
     init: true
@@ -21,6 +21,6 @@ services:
       #- "/dev/input:/dev/input"
       - "/etc/localtime:/etc/localtime:ro"
     environment:
-      - ROS_MASTER_URI=http://master:11311
+      - ROS_MASTER_URI=http://localhost:11311
     ports:
       - 80:7000 
