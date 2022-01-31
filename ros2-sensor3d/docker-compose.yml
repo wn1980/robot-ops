@@ -1,10 +1,10 @@
 version: '2.3'
 
 # create default network
-networks:
-  default:
-    external:
-      name: ros-network
+#networks:
+#  default:
+#    external:
+#      name: ros-network
 
 services:
 
@@ -15,10 +15,12 @@ services:
     init: true
     restart: unless-stopped
     privileged: true
+    network_mode: host
     devices:
       - "/dev:/dev"
     volumes:
       - "/dev:/dev"
       - "/etc/localtime:/etc/localtime:ro"
-    #environment:
+    environment:
+    - ROS_DOMAIN_ID=50
     #  - ROS_MASTER_URI=http://master:11311
