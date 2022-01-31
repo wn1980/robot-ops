@@ -9,7 +9,7 @@ networks:
 services:
 
   web-app:
-    build: ./image
+    #build: ./image
     image: wn1980/web-app-ros${TAG}
     container_name: ros_web_app
     init: true

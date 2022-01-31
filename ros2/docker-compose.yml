@@ -63,4 +63,4 @@ services:
     #  - master
     environment:
       - ROS_DOMAIN_ID=50
-      - ROS_MASTER_URI=http://master:11311
+      - ROS_MASTER_URI=http://localhost:11311
