@@ -155,6 +155,14 @@ def generate_launch_description():
     return LaunchDescription([
         robot_description,
         mobile_base_container,
+
+        Node(
+            package='turtlebot2_ros2_bringup',
+            executable='activation_button.py',
+            name='activation_button_node',
+            output='screen'
+        ),
+
         ExecuteProcess(
             cmd=['ros2', 'topic', 'pub', '/mobile_base/enable', 'std_msgs/msg/Empty', '--once'],
             output='screen'
