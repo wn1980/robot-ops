@@ -29,7 +29,7 @@ def generate_launch_description():
         parameters=[params],
         remappings=[
             ('odom', '/odom'),
-            #('commands/velocity', '/cmd_vel')
+            ('joint_states', '/joint_states')
         ],
     )
 
