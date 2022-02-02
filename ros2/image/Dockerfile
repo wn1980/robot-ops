@@ -1,5 +1,5 @@
-#FROM ros:foxy-ros-base-focal
-FROM ros:galactic-ros-base-focal
+FROM ros:foxy-ros-base-focal
+#FROM ros:galactic-ros-base-focal
 
 LABEL maintainer="Waipot Ngamsaad <waipotn@hotmail.com>"
 
@@ -172,7 +172,7 @@ RUN mkdir -p $HOME/dev_ws/src && \
 	mv kobuki_ros/kobuki_description ./ && \
 	rm -rf kobuki_ros && \
     cd $HOME/dev_ws && \
-    sudo rosdep install -i --from-path src --rosdistro galactic -y && \
+    sudo rosdep install -i --from-path src --rosdistro foxy -y && \
     source /opt/ros/${ROS_DISTRO}/setup.bash && \
     colcon build --symlink-install && \
     echo "DONE"
