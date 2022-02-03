@@ -157,24 +157,11 @@ RUN cd ~ && \
     echo "DONE"
 
 # compile turtlebot2 packages from sources
-#COPY ./app/install/turtlebot2.sh /
-
-RUN sudo apt-get update && sudo apt-get upgrade -y
+COPY ./app/install/turtlebot2.sh /
 
 RUN mkdir -p $HOME/dev_ws/src && \
-    #bash /turtlebot2.sh && \
-    #sudo rm -f /turtlebot2.sh && \
-    cd $HOME/dev_ws/src && \
-    git clone https://github.com/kobuki-base/kobuki_ros_interfaces.git && \
-    git clone https://github.com/YDLIDAR/ydlidar_ros2_driver.git && \
-    git clone https://github.com/wn1980/turtlebot2_ros2.git && \
-    git clone https://github.com/michieletto/kobuki_ros.git && \
-	mv kobuki_ros/kobuki_description ./ && \
-	rm -rf kobuki_ros && \
-    cd $HOME/dev_ws && \
-    sudo rosdep install -i --from-path src --rosdistro foxy -y && \
-    source /opt/ros/${ROS_DISTRO}/setup.bash && \
-    colcon build --symlink-install && \
+    bash /turtlebot2.sh && \
+    sudo rm -f /turtlebot2.sh && \
     echo "DONE"
 
 # https://superuser.com/questions/555310/bash-save-history-without-exit

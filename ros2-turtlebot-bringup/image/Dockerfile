@@ -30,12 +30,7 @@ RUN cd /ros2_ws/src && \
 
 RUN cd /ros2_ws/src && \
 	git clone https://github.com/kobuki-base/kobuki_ros.git && \
-	mv kobuki_ros/kobuki_node kobuki_ros/kobuki_keyop kobuki_ros/kobuki_safety_controller ./ && \
-	rm -rf kobuki_ros
-
-RUN cd /ros2_ws/src && \
-	git clone https://github.com/clalancette/kobuki_ros.git -b clalancette/port-bumper2pc && \
-	mv kobuki_ros/kobuki_bumper2pc ./ && \
+	mv kobuki_ros/kobuki_node kobuki_ros/kobuki_keyop kobuki_ros/kobuki_safety_controller kobuki_ros/kobuki_bumper2pc ./ && \
 	rm -rf kobuki_ros
 
 RUN cd /ros2_ws/src && \
