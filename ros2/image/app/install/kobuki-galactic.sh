@@ -17,6 +17,7 @@ if [ ! -d $KOBUKI_WS/src/kobuki_ros ]; then
   git clone https://github.com/stonier/ecl_lite.local -b release/1.1.x
   git clone https://github.com/stonier/ecl_tools.local -b release/1.0.x
 
+  git clone https://github.com/kobuki-base/kobuki_core.local
   git clone https://github.com/kobuki-base/kobuki_ros_interfaces.git
   git clone https://github.com/kobuki-base/velocity_smoother.git
   git clone https://github.com/kobuki-base/cmd_vel_mux.git
@@ -29,7 +30,6 @@ if [ ! -d $KOBUKI_WS/src/kobuki_ros ]; then
 	mv kobuki_ros/kobuki_description ./ && \
 	rm -rf kobuki_ros
 
-  RUN cd /ros2_ws/src && \
 	git clone https://github.com/wn1980/kobuki_ros.git && \
 	mv kobuki_ros/kobuki_auto_docking ./ && \
 	rm -rf kobuki_ros
