@@ -16,11 +16,12 @@ services:
     container_name: ros1_master
     init: true
     restart: always
+    network_mode: host
     command: roscore
     expose:
       - 11311
-    ports:
-      - "11311:11311"
+    #ports:
+    #  - "11311:11311"
 
   ros1:
     #build: ./image
@@ -33,7 +34,7 @@ services:
     #  - master
     environment:
       - DISPLAY=:1
-      - ROS_MASTER_URI=http://master:11311
+      - ROS_MASTER_URI=http://localhost:11311
       #- QT_X11_NO_MITSHM=1
       #- TURTLEBOT_3D_SENSOR=asus_xtion_pro
     devices:
