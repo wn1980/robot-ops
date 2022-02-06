@@ -12,12 +12,12 @@ if [ ! -d $KOBUKI_WS/src/kobuki_ros ]; then
 
   cd $KOBUKI_WS/src
 
-  git clone https://github.com/stonier/sophus.local -b release/1.2.x
-  git clone https://github.com/stonier/ecl_core.local -b release/1.2.x
-  git clone https://github.com/stonier/ecl_lite.local -b release/1.1.x
-  git clone https://github.com/stonier/ecl_tools.local -b release/1.0.x
+  git clone https://github.com/stonier/sophus.git -b release/1.2.x
+  git clone https://github.com/stonier/ecl_core.git -b release/1.2.x
+  git clone https://github.com/stonier/ecl_lite.git -b release/1.1.x
+  git clone https://github.com/stonier/ecl_tools.git -b release/1.0.x
 
-  git clone https://github.com/kobuki-base/kobuki_core.local
+  git clone https://github.com/kobuki-base/kobuki_core.git
   git clone https://github.com/kobuki-base/kobuki_ros_interfaces.git
   git clone https://github.com/kobuki-base/velocity_smoother.git
   git clone https://github.com/kobuki-base/cmd_vel_mux.git
