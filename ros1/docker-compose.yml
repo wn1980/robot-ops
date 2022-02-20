@@ -52,6 +52,9 @@ services:
       test: ["CMD-SHELL", "test -e /tmp/.X11-unix/X9"]
       interval: "1m"
       retries: 20
+    expose:
+      - 11345
     ports:
       - "8557:8008"
       - "9901:6901"
+      - "11345:11345"

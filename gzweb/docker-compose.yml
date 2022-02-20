@@ -1,0 +1,20 @@
+version: "2.3"
+
+networks:
+  default:
+    external:
+      name: ros-network
+
+services:
+
+  gzweb:
+    build: ./image
+    image: wn1980/gzweb${TAG}
+    container_name: ros_gzweb
+    init: true
+    restart: unless-stopped
+    environment:
+      - GAZEBO_MASTER_URI=http://ros1:11345
+      #- GAZEBO_MODEL_PATH=`pwd`/models
+    ports:
+      - "2000:8080"
