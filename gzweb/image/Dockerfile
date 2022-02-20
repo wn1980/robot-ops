@@ -47,11 +47,10 @@ RUN cd / && \
     #git checkout fix_build_gz11 && \
     git checkout gzweb_1.4.1 && \
     source /usr/share/gazebo/setup.sh && \
-    npm run deploy --- -m
+    npm run deploy --- -m local
 
 # Clean
 RUN apt-get purge -y \
-    curl \
     git \
     && apt-get autoremove -y \
     && apt-get clean \
