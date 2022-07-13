@@ -10,7 +10,7 @@ sudo apt-get update && sudo apt-get install -y \
     libssl-dev \
     curl
 
-curl https://bootstrap.pypa.io/get-pip.py | python3 -
+curl https://bootstrap.pypa.io/get-pip.py | sudo python3 -
 #python -m pip install --upgrade pip
 #python -m ensurepip --upgrade
 #conda config --set auto_activate_base false
