@@ -52,6 +52,23 @@ EOF
 sudo supervisorctl reread && supervisorctl update
 ###
 
+cat > "/etc/systemd/system/code-server.service" <<EOF
+[Unit]
+After=network.service
+[Service]
+ExecStart=code-server --bind-addr 0.0.0.0:12345 --auth none
+Restart=on-failure
+RestartSec=5s
+[Install]
+WantedBy=default.target
+EOF
+
+#systemctl daemon-reload
+
+#systemctl enable code-server.service
+
+#systemctl start code-server.service
+
 echo -e "\n===================\nInstall code-server complete...\n================="    
                                                   
 fi   
