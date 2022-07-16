@@ -56,6 +56,8 @@ cat > "/etc/systemd/system/code-server.service" <<EOF
 [Unit]
 After=network.service
 [Service]
+User=computin
+Group=computin
 ExecStart=code-server --bind-addr 0.0.0.0:12345 --auth none
 Restart=on-failure
 RestartSec=5s
@@ -63,11 +65,11 @@ RestartSec=5s
 WantedBy=default.target
 EOF
 
-#systemctl daemon-reload
+systemctl daemon-reload
 
-#systemctl enable code-server.service
+systemctl enable code-server.service
 
-#systemctl start code-server.service
+systemctl start code-server.service
 
 echo -e "\n===================\nInstall code-server complete...\n================="    
                                                   
