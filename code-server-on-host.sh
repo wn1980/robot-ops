@@ -16,7 +16,7 @@ then
     rm -f code-server_${VERSION}_$(dpkg --print-architecture).deb
 fi
 
-cat > "/etc/systemd/system/code-server.service" <<EOF
+cat > "/tmp/code-server.service" <<EOF
 [Unit]
 After=network.service
 [Service]
@@ -29,6 +29,8 @@ RestartSec=5s
 WantedBy=default.target
 
 EOF
+
+sudo mv -f /tmp/code-server.service /etc/systemd/system/
 
 sudo systemctl daemon-reload
 
