@@ -25,5 +25,7 @@ fi
 
 #sudo reboot
 
+sudo cp /etc/dphys-swapfile /etc/dphys-swapfile-old #backup
 sudo sed -i 's/^CONF_SWAPSIZE=[0-9]*$/CONF_SWAPSIZE='${SWAPSIZE}'/' /etc/dphys-swapfile
+sudo sed -i 's/^#CONF_MAXSWAP=[0-9]*$/CONF_MAXSWAP='${SWAPSIZE}'/' /etc/dphys-swapfile
 sudo /etc/init.d/dphys-swapfile restart

@@ -3,7 +3,7 @@
 set -e
 
 #VERSION=3.12.0
-VERSION=4.7.0
+VERSION=4.8.2
 
 if ! type -P code-server
 then 
