@@ -3,7 +3,7 @@
 set -e
 
 #VERSION=3.12.0
-VERSION=4.8.2
+VERSION=4.9.0
 
 if ! type -P code-server
 then 
@@ -22,7 +22,7 @@ After=network.service
 [Service]
 User=ubuntu
 Group=sudo
-ExecStart=/usr/bin/code-server --bind-addr 0.0.0.0:12345 --cert --auth none
+ExecStart=/usr/bin/code-server --bind-addr 0.0.0.0:12345 --auth none --cert
 Restart=on-failure
 RestartSec=5s
 [Install]
