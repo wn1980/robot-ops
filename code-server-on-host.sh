@@ -3,7 +3,7 @@
 set -e
 
 #VERSION=3.12.0
-VERSION=4.9.0
+VERSION=4.11.0
 
 if ! type -P code-server
 then 
@@ -20,7 +20,7 @@ cat > "/tmp/code-server.service" <<EOF
 [Unit]
 After=network.service
 [Service]
-User=ubuntu
+User=${USER}
 Group=sudo
 ExecStart=/usr/bin/code-server --bind-addr 0.0.0.0:12345 --auth none --cert
 Restart=on-failure
