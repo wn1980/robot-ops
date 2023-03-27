@@ -10,7 +10,7 @@ then
     echo -e "\n===================\nInstall jupyter-lab...\n================="    
 
     # install jupyter-lab
-    sudo pip install jupyterlab
+    sudo pip3 install jupyterlab
 fi
 
 cat > "/tmp/jupyter-lab.service" <<EOF
