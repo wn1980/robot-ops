@@ -19,7 +19,10 @@ Description=JupyterLab
 After=syslog.target network.target
 [Service]
 User=${USER}
+Group=sudo
 ExecStart=/usr/local/bin/jupyter-lab --ip 0.0.0.0 --port 8888 --no-browser --allow-root --NotebookApp.token='' --NotebookApp.password='' --notebook-dir=~/notebooks
+Restart=on-failure
+RestartSec=5s
 [Install]
 WantedBy=multi-user.target
 
