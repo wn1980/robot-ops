@@ -10,6 +10,7 @@ then
     echo -e "\n===================\nInstall jupyter-lab...\n================="    
 
     # install jupyter-lab
+    sudo pip3 install markupsafe==2.0.1 --force-reinstall
     sudo pip3 install jupyterlab
 fi
 
