@@ -8,7 +8,7 @@ if [[ "$OSTYPE" == "linux-gnueabihf" ]]; then
     DISTRO=raspbian
 fi
 
-echo "\n\n====================\ndetected $OSTYPE type linux\n===================="
+echo -e "\n\n====================\ndetected $OSTYPE type linux\n===================="
 
 for pkg in docker.io docker-doc docker-compose containerd runc; do sudo apt purge $pkg; done
 
@@ -35,5 +35,6 @@ sudo apt update && sudo apt install -y \
     
 sudo usermod -aG docker $USER
 sudo usermod -aG dialout $USER
+sudo usermod -aG video $USER
 
 echo -e "\n\n====================\nInstallation done!\nPlease reboot for completion.\n===================="
