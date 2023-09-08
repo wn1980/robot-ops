@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
-set -e
+# set -e
+
+docker network create ros-network
+docker volume create ros-workspace
 
 if [[ $# -ge 2 ]]
     then 
