@@ -3,7 +3,8 @@
 set -e
 
 sudo apt update && sudo apt install -y \
-    docker.io 
+    docker.io \
+    docker-compose
 
 sudo usermod -aG docker $USER
 sudo usermod -aG dialout $USER
