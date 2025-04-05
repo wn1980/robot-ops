@@ -12,9 +12,10 @@ then
     echo -e "\n===================\nInstall code-server...\n================="    
 
     # install code-server
-    wget https://github.com/cdr/code-server/releases/download/v${VERSION}/code-server_${VERSION}_$(dpkg --print-architecture).deb && \
-    sudo dpkg -i code-server_${VERSION}_$(dpkg --print-architecture).deb && \
-    rm -f code-server_${VERSION}_$(dpkg --print-architecture).deb
+    file="code-server_${VERSION}_$(dpkg --print-architecture).deb"
+    wget https://github.com/cdr/code-server/releases/download/v${VERSION}/$file && \
+    sudo dpkg -i ./$file && \
+    rm -f ./$file
 fi
 
 cat > "/tmp/code-server.service" <<EOF
